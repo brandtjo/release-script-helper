@@ -1,0 +1,29 @@
+<idea-plugin>
+    <id>com.github.brandtjo.releasescripthelper.release-script-helper</id>
+    <name>Release Script Helper</name>
+    <vendor email="etralse@icloud.com">Johannes Brandt</vendor>
+
+    <description><![CDATA[
+    This plugin adds an additional "new-file-menu" entry, to add new release script files with semi-automatically generated names.
+    A release script file name adheres to this pattern: &lt;timestamp&gt;_[&lt;ticket-type&gt;&lt;ticket-number&gt;_]&lt;description&gt;.&lt;suffix&gt;
+    The user is guided by a small creation dialog, allowing him to opt out of using a ticket system, or defining ticket type, number and description.
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.github.brandtjo.releasescripthelper.action.AddReleaseScriptAction"
+                class="com.github.brandtjo.releasescripthelper.action.AddReleaseScriptAction" text="Release Script"
+                description="Adds a release script to the selected directory" icon="AllIcons.FileTypes.AddAny">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
+        </action>
+    </actions>
+</idea-plugin>
