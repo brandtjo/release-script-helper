@@ -37,16 +37,16 @@ intellij {
 }
 patchPluginXml {
     version "1.0.1"
-    pluginDescription "This plugin adds an additional \"new-file-menu\" entry, to add new release script files with semi-automatically generated names.\n" +
-            "    A release script file name adheres to this pattern: (timestamp)_[(ticket-type)(ticket-number)_](description).(suffix)\n" +
-            "    The user is guided by a small creation dialog, allowing him to opt out of using a ticket system, or defining ticket type, number and description."
-    changeNotes """ 
+    pluginDescription """
+This plugin adds an additional \"new-file-menu\" entry, to add new release script files with semi-automatically generated names.
+A release script file name adheres to this pattern: (timestamp)_[(ticket-type)(ticket-number)_](description).(suffix)
+The user is guided by a small creation dialog, allowing him to opt out of using a ticket system, or defining ticket type, number and description."""
+    changeNotes """
 v1.0.1
 - fix sql comment symbols in generated release script
 
 v1.0.0
-- initial project setup (contains only support for sql files and 3 ticket prefixes)
-"""
+- initial project setup (contains only support for sql files and 3 ticket prefixes)"""
 }
 runPluginVerifier {
     ideVersions "IU-2020.3.2"
