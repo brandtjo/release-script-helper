@@ -137,12 +137,12 @@ public class AddReleaseScriptAction extends AnAction {
 
     private byte[] getReleaseScriptContent(Date date, ReleaseScriptOptions options) {
 
-        String line1 = "# description: " + Optional.ofNullable(options)
+        String line1 = "-- description:   " + Optional.ofNullable(options)
                 .map(ReleaseScriptOptions::getDescription)
                 .orElse("none") + "\n";
 
         String dateTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss z", Locale.ENGLISH).format(date);
-        String line2 = "#        date: " + dateTime + "\n";
+        String line2 = "-- date:          " + dateTime + "\n";
 
         return (line1 + line2).getBytes(StandardCharsets.UTF_8);
     }
