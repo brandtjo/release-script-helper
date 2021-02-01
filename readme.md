@@ -1,4 +1,5 @@
-#Release Script Helper - Intellij IDEA Plugin#
+Release Script Helper - Intellij IDEA Plugin
+============================================
 This plugin adds an additional "new-file-menu" entry, to add new release script files with semi-automatically generated names.
 A release script file name adheres to this pattern: 
 
