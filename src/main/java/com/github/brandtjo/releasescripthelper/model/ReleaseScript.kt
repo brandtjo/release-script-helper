@@ -30,7 +30,7 @@ class ReleaseScript {
 
     fun getReleaseScriptName(): String {
         val prefix =
-            if (options.useTimestamp || StringUtils.isBlank(scriptNumber)) date.time.toString() else scriptNumber
+            if (!options.useCustomNumber || StringUtils.isBlank(scriptNumber)) date.time.toString() else scriptNumber
         val ticket = parseTicket()
         val description = parseDescription()
         val suffix = parseSuffix()

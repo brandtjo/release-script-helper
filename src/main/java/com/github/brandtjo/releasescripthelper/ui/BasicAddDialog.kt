@@ -1,6 +1,5 @@
 package com.github.brandtjo.releasescripthelper.ui
 
-import com.github.brandtjo.releasescripthelper.model.Options
 import com.github.brandtjo.releasescripthelper.model.ReleaseScript
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.layout.CCFlags
@@ -16,14 +15,21 @@ class BasicAddDialog(private val releaseScript: ReleaseScript) : DialogWrapper(t
     override fun createCenterPanel(): JComponent {
         return panel {
             row("") {
+                val useCustomNumber = checkBox("Use Custom Number", releaseScript.options::useCustomNumber)
+                val scriptNumber = textField(releaseScript::scriptNumber)
+                    .enableIf(useCustomNumber.selected)
+                    .focused()
+                scriptNumber.component.toolTipText =
+                    "a custom release script number instead of a unix timestamp"
+            }
+            row("") {
                 val useTicketCheckBox = checkBox("For Ticket", releaseScript.options::useTicket)
-
                 val ticketType = comboBox(DefaultComboBoxModel(releaseScript.options.ticketTypes), releaseScript::ticketType)
                     .enableIf(useTicketCheckBox.selected)
                 ticketType.component.toolTipText = "selects the type of the ticket"
                 val ticketNumber = textField(releaseScript::ticketNumber)
                     .enableIf(useTicketCheckBox.selected)
-                    .constraints(CCFlags.pushX)
+                    .constraints(CCFlags.growX, CCFlags.pushX)
                     .focused()
                 ticketNumber.component.toolTipText =
                     "a ticket number with a supported type prefix will automatically adjust the ticket type selection"

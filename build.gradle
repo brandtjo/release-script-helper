@@ -36,12 +36,15 @@ intellij {
     version '2020.3'
 }
 patchPluginXml {
-    version "1.0.1"
+    version "1.1.0"
     pluginDescription """
 This plugin adds an additional \"new-file-menu\" entry, to add new release script files with semi-automatically generated names.
 A release script file name adheres to this pattern: (timestamp)_[(ticket-type)(ticket-number)_](description).(suffix)
 The user is guided by a small creation dialog, allowing him to opt out of using a ticket system, or defining ticket type, number and description."""
     changeNotes """
+v1.1.0
+- add option to not use timestamp as file prefix, but a custom script number
+
 v1.0.1
 - fix sql comment symbols in generated release script
 
