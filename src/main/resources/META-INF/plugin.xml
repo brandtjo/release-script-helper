@@ -19,9 +19,9 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="com.github.brandtjo.releasescripthelper.action.AddReleaseScriptAction"
-                class="com.github.brandtjo.releasescripthelper.action.AddReleaseScriptAction" text="Release Script"
-                description="Adds a release script to the selected directory" icon="AllIcons.FileTypes.AddAny">
+        <action id="com.github.brandtjo.releasescripthelper.action.ProjectExplorerAddScript"
+				class="com.github.brandtjo.releasescripthelper.action.ProjectExplorerAddScript" text="Release Script"
+				description="Adds a release script to the selected directory" icon="AllIcons.FileTypes.AddAny">
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
         </action>
