@@ -17,20 +17,24 @@ class ReleaseScript {
         set(rawTicketNumber) {
             field = rawTicketNumber
             options.ticketTypes.stream()
-                .filter { rawTicketNumber.toLowerCase().startsWith(it.toLowerCase()) }
+                .filter { field.toLowerCase().startsWith(it.toLowerCase()) }
                 .findAny()
                 .ifPresent {
                     ticketType = it
-                    field = rawTicketNumber.replaceFirst(it, "", true)
+                    field = field.replaceFirst(it, "", true)
                 }
         }
     var description: String = ""
     var fileEnding = "sql"
     var options: Options = Options()
+        set(options) {
+            field = options
+            ticketType = options.ticketTypes[0]
+            fileEnding = options.fileEndings[0]
+        }
 
     fun getReleaseScriptName(): String {
-        val prefix =
-            if (!options.useCustomNumber || StringUtils.isBlank(scriptNumber)) date.time.toString() else scriptNumber
+        val prefix = if (!options.useCustomScriptNumber) date.time.toString() else scriptNumber
         val ticket = parseTicket()
         val description = parseDescription()
         val suffix = parseSuffix()

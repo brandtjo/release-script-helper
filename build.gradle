@@ -36,20 +36,30 @@ intellij {
     version '2020.3'
 }
 patchPluginXml {
+
     version "1.1.0"
     pluginDescription """
 This plugin adds an additional \"new-file-menu\" entry, to add new release script files with semi-automatically generated names.
-A release script file name adheres to this pattern: (timestamp)_[(ticket-type)(ticket-number)_](description).(suffix)
-The user is guided by a small creation dialog, allowing him to opt out of using a ticket system, or defining ticket type, number and description."""
+A release script file name adheres to this pattern:<br>
+(timestamp|custom)_[(ticket-type)(ticket-number)_](description).(suffix)<br><br>
+The script generation is guided by a small dialog, allowing to opt out of using a ticket system, or defining ticket type, number and description."""
     changeNotes """
 v1.1.0
-- add option to not use timestamp as file prefix, but a custom script number
+<ul>
+    <li>add option to not use timestamp as file prefix, but a custom script number</li>
+    <li>add project settings for selection of defaults for the dialog, especially configurable ticket types and file endings</li>
+</ul>
 
 v1.0.1
-- fix sql comment symbols in generated release script
+<ul>
+<li>fix sql comment symbols in generated release script</li>
+</ul>
 
 v1.0.0
-- initial project setup (contains only support for sql files and 3 ticket prefixes)"""
+<ul>
+<li>initial project setup (contains only support for sql files and 3 ticket prefixes)</li>
+</ul>
+"""
 }
 runPluginVerifier {
     ideVersions "IU-2020.3.2"

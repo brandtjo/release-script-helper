@@ -1,6 +1,7 @@
 package com.github.brandtjo.releasescripthelper.action;
 
 import com.github.brandtjo.releasescripthelper.model.ReleaseScript;
+import com.github.brandtjo.releasescripthelper.settings.ProjectLevelState;
 import com.github.brandtjo.releasescripthelper.ui.BasicAddDialog;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -64,10 +65,15 @@ public class ProjectExplorerAddScript extends AnAction {
 
     private ReleaseScript promptValuesForReleaseScript() {
         ReleaseScript model = new ReleaseScript();
-        if(new BasicAddDialog(model).showAndGet()) {
+        updateOptions(model);
+        if(new BasicAddDialog(model, currentProject).showAndGet()) {
             return model;
         } else {
             throw new IllegalArgumentException("Script creation canceled");
         }
+    }
+
+    private void updateOptions(ReleaseScript model) {
+        model.setOptions(ProjectLevelState.getInstanceFor(currentProject).options);
     }
 }
