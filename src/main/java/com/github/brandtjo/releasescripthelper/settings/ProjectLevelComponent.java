@@ -1,13 +1,20 @@
 package com.github.brandtjo.releasescripthelper.settings;
 
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.InputValidatorEx;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.TextBrowseFolderListener;
+import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.NlsContexts;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.AddEditDeleteListPanel;
 import com.intellij.ui.IdeBorderFactory;
 import com.intellij.ui.ListSpeedSearch;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBRadioButton;
+import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.JBUI;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +29,8 @@ import java.util.List;
 
 public class ProjectLevelComponent {
 
+    private final TextFieldWithBrowseButton defaultDirectoryChooser = new TextFieldWithBrowseButton(new JBTextField());
+
     private final JPanel mainPanel;
     private final JBRadioButton useCustomScriptNumber = new JBRadioButton("Use custom script number", false);
     private final JBRadioButton useUnixTimeStamp = new JBRadioButton("Use Unix timestamp", true);
@@ -29,7 +38,14 @@ public class ProjectLevelComponent {
     private final MyListPanel ticketTypes = new MyListPanel("Ticket types", "Define the ticket type");
     private final MyListPanel fileEndings = new MyListPanel("File endings", "Define the file ending");
 
-    public ProjectLevelComponent() {
+    public ProjectLevelComponent(Project currentProject) {
+        if(!currentProject.isDefault() && currentProject.getBasePath() != null) {
+            VirtualFile projectFile = LocalFileSystem.getInstance().findFileByPath(currentProject.getBasePath());
+            defaultDirectoryChooser.addBrowseFolderListener(new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor().withRoots(projectFile), currentProject));
+        } else {
+            defaultDirectoryChooser.setEditable(false);
+        }
+
         ButtonGroup group = new ButtonGroup();
         group.add(useCustomScriptNumber);
         group.add(useUnixTimeStamp);
@@ -38,7 +54,9 @@ public class ProjectLevelComponent {
         radioGroup.add(useUnixTimeStamp);
 
         mainPanel = FormBuilder.createFormBuilder()
-                .addComponent(new JBLabel("Default prefix"), 20)
+                .addLabeledComponent("Default directory", defaultDirectoryChooser, 30)
+                .addSeparator(20)
+                .addComponent(new JBLabel("Default prefix"), 10)
                 .addComponent(useCustomScriptNumber, 8)
                 .addComponent(useUnixTimeStamp, 5)
                 .addSeparator(20)
@@ -54,6 +72,14 @@ public class ProjectLevelComponent {
 
     public JComponent getPreferredFocusedComponent() {
         return useUnixTimeStamp;
+    }
+
+    public String getDefaultDirectory() {
+        return defaultDirectoryChooser.getText();
+    }
+
+    public void setDefaultDirectory(String text) {
+        defaultDirectoryChooser.setText(text);
     }
 
     public boolean isUseCustomScriptNumber() {

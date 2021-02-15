@@ -26,14 +26,15 @@ public class ProjectLevelConfigurable implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        component = new ProjectLevelComponent();
+        component = new ProjectLevelComponent(project);
         return component.getPanel();
     }
 
     @Override
     public boolean isModified() {
         ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
-        boolean modified = component.isUseCustomScriptNumber() != settings.options.getUseCustomScriptNumber();
+        boolean modified = !component.getDefaultDirectory().equals(settings.options.getDefaultDirectory());
+        modified |= component.isUseCustomScriptNumber() != settings.options.getUseCustomScriptNumber();
         modified |= component.isUseUnixTimestamp() == settings.options.getUseCustomScriptNumber();
         modified |= !Arrays.equals(component.getFileEndings().toArray(new String[0]), settings.options.getFileEndings());
         modified |= !Arrays.equals(component.getTicketTypes().toArray(new String[0]), settings.options.getTicketTypes());
@@ -43,6 +44,7 @@ public class ProjectLevelConfigurable implements Configurable {
     @Override
     public void apply() {
         ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
+        settings.options.setDefaultDirectory(component.getDefaultDirectory());
         settings.options.setUseCustomScriptNumber(component.isUseCustomScriptNumber());
         settings.options.setTicketTypes(component.getTicketTypes().toArray(new String[0]));
         settings.options.setFileEndings(component.getFileEndings().toArray(new String[0]));
@@ -51,6 +53,7 @@ public class ProjectLevelConfigurable implements Configurable {
     @Override
     public void reset() {
         ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
+        component.setDefaultDirectory(settings.options.getDefaultDirectory());
         component.setUseCustomScriptNumber(settings.options.getUseCustomScriptNumber());
         component.setUseUnixTimeStamp(!settings.options.getUseCustomScriptNumber());
         component.setTicketTypes(Arrays.asList(settings.options.getTicketTypes()));

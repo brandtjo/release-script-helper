@@ -12,7 +12,7 @@ class ReleaseScript {
 
     var date: Date = Date()
     var scriptNumber: String = ""
-    var ticketType: String = "OCT"
+    var ticketType: String = ""
     var ticketNumber: String = ""
         set(rawTicketNumber) {
             field = rawTicketNumber
@@ -25,12 +25,12 @@ class ReleaseScript {
                 }
         }
     var description: String = ""
-    var fileEnding = "sql"
+    var fileEnding: String = ""
     var options: Options = Options()
         set(options) {
             field = options
-            ticketType = options.ticketTypes[0]
-            fileEnding = options.fileEndings[0]
+            ticketType = if (options.ticketTypes.isNotEmpty()) options.ticketTypes[0] else StringUtils.EMPTY
+            fileEnding = if (options.fileEndings.isNotEmpty()) options.fileEndings[0] else StringUtils.EMPTY
         }
 
     fun getReleaseScriptName(): String {
