@@ -37,7 +37,6 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                 .editConfigurable(currentProject, ProjectLevelConfigurable(currentProject))
             if (edited) {
                 releaseScript.options = ProjectLevelState.getInstanceFor(currentProject).options
-
                 updateUiComponentsByHandBecauseSwingIsStupid()
             }
         }
@@ -59,7 +58,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
             }
             row("") {
                 useTicketCheckBox = checkBox("For Ticket", releaseScript.options::useTicket)
-                ticketType = comboBox(DefaultComboBoxModel(releaseScript.options.ticketTypes), releaseScript::ticketType)
+                ticketType = comboBox(DefaultComboBoxModel(releaseScript.options.ticketTypes), {releaseScript.ticketType}, {releaseScript.ticketType = it ?: "" })
                     .enableIf(useTicketCheckBox.selected)
                 ticketType.enabled(releaseScript.options.ticketTypes.size > 1)
                 ticketType.component.toolTipText = "selects the type of the ticket"
@@ -71,8 +70,8 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                     "a ticket number with a supported type prefix will automatically adjust the ticket type selection"
                 ticketNumber.component.addKeyListener(object : KeyAdapter() {
                     override fun keyReleased(e: KeyEvent) {
-                        releaseScript.ticketType = ticketType.component.item
-                        releaseScript.ticketNumber = ticketNumber.component.text
+                        releaseScript.ticketType = if(ticketType.component.item != null) ticketType.component.item else ""
+                        releaseScript.ticketNumber = if(ticketNumber.component.text != null) ticketNumber.component.text else ""
                         ticketNumber.component.text = releaseScript.ticketNumber
                         ticketType.component.item = releaseScript.ticketType
                     }
@@ -85,7 +84,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                     "the description text is used for the filename and a comment in the file itself"
             }
             row("File Ending:") {
-                fileEndings = comboBox(DefaultComboBoxModel(releaseScript.options.fileEndings), releaseScript::fileEnding)
+                fileEndings = comboBox(DefaultComboBoxModel(releaseScript.options.fileEndings), {releaseScript.fileEnding}, {releaseScript.fileEnding = it ?: "" })
                 fileEndings.enabled(releaseScript.options.fileEndings.size > 1)
             }
         }
