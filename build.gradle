@@ -48,6 +48,7 @@ v1.1.0
 <ul>
     <li>add option to not use timestamp as file prefix, but a custom script number</li>
     <li>add project settings for selection of defaults for the dialog, especially configurable ticket types and file endings</li>
+    <li>add project setting for default directory</li>
 </ul>
 
 v1.0.1
