@@ -44,6 +44,10 @@ A release script file name adheres to this pattern:<br>
 (timestamp|custom)_[(ticket-type)(ticket-number)_](description).(suffix)<br><br>
 The script generation is guided by a small dialog, allowing to opt out of using a ticket system, or defining ticket type, number and description."""
     changeNotes """
+v1.2.0
+<ul>
+    <li>add generation menu action: selected text will be copied to the generated release script (Hotkey: ctrl alt r)</li>
+</ul>
 v1.1.0
 <ul>
     <li>add option to not use timestamp as file prefix, but a custom script number</li>

@@ -25,6 +25,7 @@ class ReleaseScript {
                 }
         }
     var description: String = ""
+    var content: String = ""
     var fileEnding: String = ""
     var options: Options = Options()
         set(options) {
@@ -47,7 +48,9 @@ class ReleaseScript {
         val line1 = "-- description:   $description\n"
         val dateTime = SimpleDateFormat("dd.MM.yyyy HH:mm:ss z", Locale.ENGLISH).format(date)
         val line2 = "-- date:          $dateTime\n"
-        return (line1 + line2).toByteArray(StandardCharsets.UTF_8)
+        val line3 = "\n"
+        val script = "$content\n"
+        return (line1 + line2 + if(StringUtils.isNotBlank(content)) line3 + script else "").toByteArray(StandardCharsets.UTF_8)
     }
 
     private fun parseTicket(): String? {

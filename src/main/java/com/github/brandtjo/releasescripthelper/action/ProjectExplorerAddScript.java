@@ -1,35 +1,19 @@
 package com.github.brandtjo.releasescripthelper.action;
 
-import com.github.brandtjo.releasescripthelper.model.Options;
-import com.github.brandtjo.releasescripthelper.model.ReleaseScript;
-import com.github.brandtjo.releasescripthelper.settings.ProjectLevelState;
-import com.github.brandtjo.releasescripthelper.ui.BasicAddDialog;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.openapi.project.Project;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.vfs.LocalFileSystem;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.file.PsiDirectoryFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-public class ProjectExplorerAddScript extends AnAction {
-
-    private Project currentProject;
+public class ProjectExplorerAddScript extends BasicAddScript {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
-        currentProject = event.getProject();
 
         Optional<PsiDirectory> defaultDirectory = getDefaultDirectory();
         PsiDirectory directory;
@@ -46,62 +30,11 @@ public class ProjectExplorerAddScript extends AnAction {
             return;
         }
 
-        try {
-            createAndOpenReleaseScript(directory, selectedbyUser);
-        } catch (IllegalArgumentException e) {
-            showErrorDialog(e);
-        }
-    }
-
-    @Override
-    public void update(AnActionEvent e) {
-        // Set the availability based on whether a project is open
-        Project project = e.getProject();
-        e.getPresentation().setEnabledAndVisible(project != null);
-    }
-
-    private Optional<PsiDirectory> getDefaultDirectory() {
-        return Optional.ofNullable(ProjectLevelState.getInstanceFor(currentProject))
-                .map(it -> it.options)
-                .map(Options::getDefaultDirectory)
+        createAndOpenReleaseScript(directory, selectedbyUser, Optional.ofNullable(event.getData(CommonDataKeys.EDITOR))
+                .map(Editor::getSelectionModel)
+                .map(model -> model.getSelectedText(true))
                 .filter(StringUtils::isNotBlank)
-                .map(defaultDirectory -> LocalFileSystem.getInstance().findFileByPath(defaultDirectory))
-                .filter(VirtualFile::isDirectory)
-                .map(virtualFile -> PsiDirectoryFactory.getInstance(currentProject).createDirectory(virtualFile));
+                .orElse(null));
     }
 
-    private void createAndOpenReleaseScript(final PsiDirectory directory, boolean selectedByUser) {
-        final ReleaseScript releaseScript = promptValuesForReleaseScript();
-        ApplicationManager.getApplication().runWriteAction(() -> {
-            PsiFile releaseScriptFile = getDefaultDirectory()
-                    .filter(it -> !selectedByUser)
-                    .orElse(directory)
-                    .createFile(releaseScript.getReleaseScriptName());
-            releaseScriptFile.getVirtualFile().setCharset(StandardCharsets.UTF_8);
-            try {
-                releaseScriptFile.getVirtualFile().setBinaryContent(releaseScript.getReleaseScriptContent());
-            } catch (IOException e) {
-                showErrorDialog(e);
-            }
-            new OpenFileDescriptor(currentProject, releaseScriptFile.getVirtualFile(), 3, 0).navigate(true);
-        });
-    }
-
-    private void showErrorDialog(Exception e) {
-        Messages.showErrorDialog(currentProject, e.getMessage(), "Error While Creating Release Script");
-    }
-
-    private ReleaseScript promptValuesForReleaseScript() {
-        ReleaseScript model = new ReleaseScript();
-        updateOptions(model);
-        if (new BasicAddDialog(model, currentProject).showAndGet()) {
-            return model;
-        } else {
-            throw new IllegalArgumentException("Script creation canceled");
-        }
-    }
-
-    private void updateOptions(ReleaseScript model) {
-        model.setOptions(ProjectLevelState.getInstanceFor(currentProject).options);
-    }
 }
