@@ -37,7 +37,7 @@ intellij {
 }
 patchPluginXml {
 
-    version "1.1.0"
+    version "1.2.0"
     pluginDescription """
 This plugin adds an additional \"new-file-menu\" entry, to add new release script files with semi-automatically generated names.
 A release script file name adheres to this pattern:<br>
@@ -47,6 +47,7 @@ The script generation is guided by a small dialog, allowing to opt out of using 
 v1.2.0
 <ul>
     <li>add generation menu action: selected text will be copied to the generated release script (Hotkey: ctrl alt r)</li>
+    <li>use project-relative file path for default directory</li>
 </ul>
 v1.1.0
 <ul>

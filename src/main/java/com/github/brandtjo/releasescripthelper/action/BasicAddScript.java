@@ -4,13 +4,13 @@ import com.github.brandtjo.releasescripthelper.model.Options;
 import com.github.brandtjo.releasescripthelper.model.ReleaseScript;
 import com.github.brandtjo.releasescripthelper.settings.ProjectLevelState;
 import com.github.brandtjo.releasescripthelper.ui.BasicAddDialog;
+import com.github.brandtjo.releasescripthelper.util.FileUtil;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
@@ -41,7 +41,7 @@ public abstract class BasicAddScript extends AnAction {
                 .map(it -> it.options)
                 .map(Options::getDefaultDirectory)
                 .filter(StringUtils::isNotBlank)
-                .map(defaultDirectory -> LocalFileSystem.getInstance().findFileByPath(defaultDirectory))
+                .map(filePath -> FileUtil.fromRelativePresentableUrl(currentProject, filePath))
                 .filter(VirtualFile::isDirectory)
                 .map(virtualFile -> PsiDirectoryFactory.getInstance(currentProject).createDirectory(virtualFile));
     }

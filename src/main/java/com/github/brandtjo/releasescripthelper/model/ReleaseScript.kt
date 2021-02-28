@@ -25,7 +25,7 @@ class ReleaseScript {
                 }
         }
     var description: String = ""
-    var content: String = ""
+    var content: String? = ""
     var fileEnding: String = ""
     var options: Options = Options()
         set(options) {
