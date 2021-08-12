@@ -1,19 +1,33 @@
 <idea-plugin>
     <id>com.github.brandtjo.releasescripthelper</id>
-    <name>release-script-helper</name>
-    <vendor>brandtjo</vendor>
+    <name>Release Script Helper</name>
+    <vendor>Johannes Brandt</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.brandtjo.releasescripthelper.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.brandtjo.releasescripthelper.services.MyProjectService"/>
-    </extensions>
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.github.brandtjo.releasescripthelper.com.github.brandtjo.releasescripthelper.action.ProjectExplorerAddScript"
+                class="com.github.brandtjo.releasescripthelper.action.ProjectExplorerAddScript" text="Release Script"
+                description="Adds a release script to the selected directory" icon="AllIcons.FileTypes.AddAny">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
+        </action>
+        <action id="com.github.brandtjo.releasescripthelper.com.github.brandtjo.releasescripthelper.action.GenerationMenuAddScript"
+                class="com.github.brandtjo.releasescripthelper.action.GenerationMenuAddScript"
+                text="Generate Release Script" description="Generates a release script from selected text">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
+        </action>
+    </actions>
 
-    <applicationListeners>
-        <listener class="com.github.brandtjo.releasescripthelper.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable parentId="tools"
+                             instance="com.github.brandtjo.releasescripthelper.settings.ProjectLevelConfigurable"
+                             id="com.github.brandtjo.releasescripthelper.com.github.brandtjo.releasescripthelper.settings.ProjectLevelConfigurable"
+                             displayName="Release Script Helper" nonDefaultProject="false"/>
+        <projectService serviceImplementation="com.github.brandtjo.releasescripthelper.settings.ProjectLevelState"/>
+    </extensions>
 </idea-plugin>
