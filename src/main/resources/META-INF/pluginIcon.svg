@@ -1,58 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="81" height="80" viewBox="0 0 81 80">
-  <defs>
-    <linearGradient id="pluginsdk_80-a" x1="-.031%" x2="100.053%" y1="49.963%" y2="49.963%">
-      <stop offset="25.81%" stop-color="#F97A12"/>
-      <stop offset="45.91%" stop-color="#B07B58"/>
-      <stop offset="72.41%" stop-color="#577BAE"/>
-      <stop offset="91.05%" stop-color="#1E7CE5"/>
-      <stop offset="100%" stop-color="#087CFA"/>
-    </linearGradient>
-    <linearGradient id="pluginsdk_80-b" x1="27.55%" x2="82.223%" y1="34.514%" y2="77.605%">
-      <stop offset="0%" stop-color="#F97A12"/>
-      <stop offset="7.18%" stop-color="#CB7A3E"/>
-      <stop offset="15.41%" stop-color="#9E7B6A"/>
-      <stop offset="24.2%" stop-color="#757B91"/>
-      <stop offset="33.44%" stop-color="#537BB1"/>
-      <stop offset="43.24%" stop-color="#387CCC"/>
-      <stop offset="53.81%" stop-color="#237CE0"/>
-      <stop offset="65.52%" stop-color="#147CEF"/>
-      <stop offset="79.25%" stop-color="#0B7CF7"/>
-      <stop offset="100%" stop-color="#087CFA"/>
-    </linearGradient>
-    <linearGradient id="pluginsdk_80-c" x1="63.121%" x2="40.793%" y1="97.699%" y2="-6.587%">
-      <stop offset="0%" stop-color="#FE315D"/>
-      <stop offset="7.84%" stop-color="#CB417E"/>
-      <stop offset="16.01%" stop-color="#9E4E9B"/>
-      <stop offset="24.74%" stop-color="#755BB4"/>
-      <stop offset="33.92%" stop-color="#5365CA"/>
-      <stop offset="43.65%" stop-color="#386DDB"/>
-      <stop offset="54.14%" stop-color="#2374E9"/>
-      <stop offset="65.76%" stop-color="#1478F3"/>
-      <stop offset="79.4%" stop-color="#0B7BF8"/>
-      <stop offset="100%" stop-color="#087CFA"/>
-    </linearGradient>
-    <linearGradient id="pluginsdk_80-d" x1="25.331%" x2="93.854%" y1="24.119%" y2="132.621%">
-      <stop offset="0%" stop-color="#FE315D"/>
-      <stop offset="4.023%" stop-color="#F63462"/>
-      <stop offset="10.37%" stop-color="#DF3A71"/>
-      <stop offset="16.67%" stop-color="#C24383"/>
-      <stop offset="29.12%" stop-color="#AD4A91"/>
-      <stop offset="54.98%" stop-color="#755BB4"/>
-      <stop offset="91.75%" stop-color="#1D76ED"/>
-      <stop offset="100%" stop-color="#087CFA"/>
-    </linearGradient>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <g fill-rule="nonzero" transform="translate(8 8)">
-      <path fill="url(#pluginsdk_80-a)" d="M6.08754566,64 L2.66453526e-15,59.1000946 L0,26.7918961 L30,38.6703369 L10.1403967,64 L6.08754566,64 Z"/>
-      <path fill="url(#pluginsdk_80-b)" d="M20.9524706,64 L52.2740919,31.9159091 L37.6708832,0.460194805 L38.0580944,1.33226763e-15 L64,0 L64,64 L20.9524706,64 Z"/>
-      <path fill="url(#pluginsdk_80-c)" d="M34.4123783,0 L64,0 L64,28.0366227 L49.0078336,44 L34,0.44696173 L34.4123783,0 Z"/>
-      <path fill="url(#pluginsdk_80-d)" d="M30.3358775,64 L0,64 L0,49.9709549 L6.23437817,29.2830519 L0,27.1596093 L0,0 L39.4697238,0 L58,21.3844805 L30.5381317,63.9259091 L30.3358775,64 Z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36" width="36" height="36"
+     xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M2 2L34 2L34 34L2 34L2 2Z" id="cux2cTNTq"/>
+        <text id="e3CQgsHFk" x="4.5" y="4.5" font-size="38" font-family="Londrina Solid" font-weight="normal"
+              font-style="normal" letter-spacing="0" alignment-baseline="before-edge"
+              transform="matrix(1 0 0 1 -2.25 -9.90625)" style="line-height: 100%; white-space: pre;"
+              dominant-baseline="text-before-edge">
+            <tspan x="4.5" dy="0em" alignment-baseline="before-edge" dominant-baseline="text-before-edge"
+                   text-anchor="start">R
+            </tspan>
+        </text>
+        <path d="M18.65 18.59L29.92 15.58L33.76 26.6L28.97 24.06L25.02 31.5L19.48 28.56L23.43 21.12L18.65 18.59Z"
+              id="c7ztkCXJW3"/>
+        <path d="M23.81 27.32L24.97 31.5L15.63 30.45L23.81 27.32Z" id="c3bC0sb0m5"/>
+        <text id="b3pkcyiJRA" x="21.66" y="2.42" font-size="30" font-family="Londrina Solid" font-weight="normal"
+              font-style="normal" letter-spacing="-3.3" alignment-baseline="before-edge"
+              transform="matrix(0.6856256530455174 -0.7279543006850827 0.7279543006850827 0.6856256530455174 -1.6765645814774413 17.46842168914943)"
+              style="line-height: 100%; white-space: pre;" dominant-baseline="text-before-edge">
+            <tspan x="21.66" dy="0em" alignment-baseline="before-edge" dominant-baseline="text-before-edge"
+                   text-anchor="start">*
+            </tspan>
+        </text>
+        <path d="M20.38 29.25L23.31 26.71L18.13 24.96L20.38 29.25Z" id="iplK1NwLT"/>
+        <path id="text-path-0" d="M 2.203125 25.643676035502956 Q 12.046875 -10.265625 21.890625 25.643676035502956"/>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <path d="M2 2L34 2L34 34L2 34L2 2Z" transform="matrix(1, 0, 0, 1, 0, 0)" opacity="1"
+                      style="fill: rgb(190, 210, 230);"/>
+            </g>
+            <g id="c1Om6Du6LH">
+                <g transform="matrix(1, 0, 0, 1, -0.177778, 0)">
+                    <path d="M 27.71 14.651 L 25.476 19.06 C 25.172 19.616 24.936 19.992 24.768 20.189 L 24.749 20.224 C 20.14 19.791 16.506 19.813 13.846 20.29 L 13.711 20.308 C 14.069 20.556 14.807 20.986 15.925 21.595 C 17.048 22.208 19.053 23.203 21.94 24.581 C 21.847 25.335 21.296 26.637 20.287 28.486 L 19.363 30.181 C 19.241 30.403 19.168 30.538 19.142 30.584 C 19.19 30.497 15.706 28.539 8.689 24.71 C 1.672 20.882 -2.659 18.679 -4.303 18.101 C -3.262 15.289 -2.388 13.234 -1.679 11.935 C -0.967 10.629 -0.4 9.674 0.021 9.069 C 0.788 7.816 1.809 6.843 3.084 6.149 C 5.545 4.811 8.142 4.785 10.873 6.07 C 10.994 6.113 11.11 6.165 11.221 6.225 C 12.333 6.832 13.231 7.755 13.914 8.993 C 15.227 10.917 15.404 12.889 14.446 14.91 L 14.355 15.077 L 14.39 15.096 C 14.909 15.091 16.823 14.951 20.133 14.675 C 23.448 14.403 25.974 14.395 27.71 14.651 Z M 7.235 17.812 C 7.682 17.159 8.057 16.555 8.361 15.999 C 8.664 15.443 8.902 14.924 9.074 14.441 C 9.396 13.378 8.922 12.501 7.652 11.808 C 6.856 11.373 6.104 11.324 5.397 11.66 C 4.72 11.898 4.192 12.366 3.812 13.062 C 3.429 13.764 3.167 14.669 3.026 15.777 C 3.349 15.923 4.025 16.269 5.056 16.816 C 6.086 17.363 6.807 17.707 7.216 17.847 L 7.235 17.812 Z"
+                          style="line-height: 38px; stroke: rgb(59, 188, 107); stroke-width: 0px; white-space: pre; alignment-baseline: before-edge; fill: rgb(28, 76, 128);"
+                          transform="matrix(0.469472, 0.882947, -0.882947, 0.469472, 21.973825, -0.861138)"/>
+                </g>
+            </g>
+            <g>
+                <path d="M18.65 18.59L29.92 15.58L33.76 26.6L28.97 24.06L25.02 31.5L19.48 28.56L23.43 21.12L18.65 18.59Z"
+                      transform="matrix(1, 0, 0, 1, 0, 0)" opacity="1" fill="#1c4c80" fill-opacity="1"/>
+            </g>
+            <g>
+                <path d="M23.81 27.32L24.97 31.5L15.63 30.45L23.81 27.32Z" transform="matrix(1, 0, 0, 1, 0, 0)"
+                      opacity="1" fill="#1c4c80" fill-opacity="1"/>
+                <g>
+                    <path d="M23.81 27.32L24.97 31.5L15.63 30.45L23.81 27.32Z" transform="matrix(1, 0, 0, 1, 0, 0)"
+                          opacity="1" fill-opacity="0" stroke="#3bbc6b" stroke-width="0" stroke-opacity="1"/>
+                </g>
+            </g>
+            <g id="d1PEj7ufQ4">
+                <path d="M 31.23 18.356 L 29.28 19.916 C 29.26 19.936 29.24 19.946 29.22 19.946 L 29.19 19.916 C 28.93 19.576 28.74 19.386 28.62 19.346 C 27.7 18.426 27.17 17.936 27.03 17.876 C 26.91 17.936 26.593 18.216 26.08 18.716 C 25.573 19.216 25.253 19.516 25.12 19.616 C 24.993 19.716 24.9 19.766 24.84 19.766 C 23.48 18.486 22.62 17.696 22.26 17.396 C 22.42 17.156 22.767 16.756 23.3 16.196 C 23.827 15.636 24.133 15.306 24.22 15.206 C 24.313 15.106 24.33 14.996 24.27 14.876 C 24.21 14.756 23.863 14.342 23.23 13.636 C 22.603 12.922 22.27 12.506 22.23 12.386 C 22.33 12.346 22.75 11.956 23.49 11.216 L 24.87 9.866 C 24.95 9.886 25.343 10.226 26.05 10.886 C 26.763 11.546 27.16 11.906 27.24 11.966 L 29.46 9.926 L 31.98 12.446 C 31.94 12.706 31.62 13.132 31.02 13.726 C 30.42 14.312 30.08 14.706 30 14.906 C 30.06 14.906 30.413 15.296 31.06 16.076 C 31.713 16.856 32.06 17.256 32.1 17.276 C 32.14 17.436 32.01 17.646 31.71 17.906 C 31.41 18.166 31.25 18.316 31.23 18.356 Z"
+                      transform="matrix(0.6856256723403931, -0.7279542088508606, 0.7279542088508606, 0.6856256723403931, -1.6765645742416382, 17.468421936035156)"
+                      style="fill: rgb(28, 76, 128); line-height: 30px; white-space: pre; alignment-baseline: before-edge;"/>
+            </g>
+            <g>
+                <path d="M20.38 29.25L23.31 26.71L18.13 24.96L20.38 29.25Z" transform="matrix(1, 0, 0, 1, 0, 0)"
+                      opacity="1" fill="#1c4c80" fill-opacity="1"/>
+                <g>
+                    <path d="M20.38 29.25L23.31 26.71L18.13 24.96L20.38 29.25Z" transform="matrix(1, 0, 0, 1, 0, 0)"
+                          opacity="1" fill-opacity="0" stroke="#3bbc6b" stroke-width="0" stroke-opacity="1"/>
+                </g>
+            </g>
+        </g>
     </g>
-    <g fill-rule="nonzero" transform="translate(12 12)">
-      <rect width="56" height="56" fill="#000"/>
-      <rect width="22" height="4" x="4" y="46" fill="#FFFEFE"/>
-      <path fill="#FFFEFE" d="M11.128,25.28 C8.584,25.28 6.016,24.392 4,22.592 L6.184,19.976 C7.696,21.224 9.28,22.016 11.2,22.016 C12.712,22.016 13.624,21.416 13.624,20.432 L13.624,20.384 C13.624,19.448 13.048,18.968 10.24,18.248 C6.856,17.384 4.672,16.448 4.672,13.112 L4.672,13.064 C4.672,10.016 7.12,8 10.552,8 C13,8 15.088,8.768 16.792,10.136 L14.872,12.92 C13.384,11.888 11.92,11.264 10.504,11.264 C9.088,11.264 8.344,11.912 8.344,12.728 L8.344,12.776 C8.344,13.88 9.064,14.24 11.968,14.984 C15.376,15.872 17.296,17.096 17.296,20.024 L17.296,20.072 C17.296,23.408 14.752,25.28 11.128,25.28 Z M19.512,25.04 L19.512,8.24 L26.064,8.24 C31.344,8.24 34.992,11.864 34.992,16.592 L34.992,16.64 C34.992,21.368 31.344,25.04 26.064,25.04 L19.512,25.04 Z M26.064,11.576 L23.208,11.576 L23.208,21.704 L26.064,21.704 C29.088,21.704 31.128,19.664 31.128,16.688 L31.128,16.64 C31.128,13.664 29.088,11.576 26.064,11.576 Z M37.28,25.04 L37.28,8.24 L40.976,8.24 L40.976,15.584 L47.744,8.24 L52.28,8.24 L45.416,15.368 L52.568,25.04 L48.128,25.04 L42.92,17.888 L40.976,19.904 L40.976,25.04 L37.28,25.04 Z"/>
-    </g>
-  </g>
 </svg>
