@@ -2,7 +2,9 @@
 
 # Release Script Helper Changelog
 
-## [1.2.2]
+## [Unreleased]
+
+- Add custom plugin icon
 
 ## [1.2.2] - 2021-08-21
 
