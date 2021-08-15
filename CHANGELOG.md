@@ -2,7 +2,7 @@
 
 # Release Script Helper Changelog
 
-## [Unreleased]
+## [1.2.4]
 
 - Add custom plugin icon
 
