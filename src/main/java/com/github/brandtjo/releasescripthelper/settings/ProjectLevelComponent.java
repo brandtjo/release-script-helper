@@ -8,24 +8,20 @@ import com.intellij.openapi.ui.InputValidatorEx;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.NlsContexts;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.AddEditDeleteListPanel;
-import com.intellij.ui.IdeBorderFactory;
 import com.intellij.ui.ListSpeedSearch;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBRadioButton;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
-import com.intellij.util.ui.JBUI;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,18 +124,13 @@ public class ProjectLevelComponent {
      */
     private static class MyListPanel extends AddEditDeleteListPanel<String> {
 
-        private final @NlsContexts.DialogMessage String myQuery;
+        private final String myQuery;
 
         @Nls(capitalization = Nls.Capitalization.Title)
         public MyListPanel(String title, String query) {
             super(title, new ArrayList<>());
             myQuery = query;
             new ListSpeedSearch<>(myList);
-        }
-
-        @Override
-        protected Border createTitledBorder(String title) {
-            return IdeBorderFactory.createTitledBorder(title, false, JBUI.insetsTop(8)).setShowLine(false);
         }
 
         @Override
@@ -162,7 +153,7 @@ public class ProjectLevelComponent {
                         }
 
                         @Override
-                        public @NlsContexts.DetailedDescription @Nullable String getErrorText(String inputString) {
+                        public @Nullable String getErrorText(String inputString) {
                             if (!checkInput(inputString)) {
                                 return "Input mustn't be empty and must only consist of word characters: [A-Za-z0-9_]";
                             }

@@ -2,6 +2,10 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+
+- Update to Idea 2021.2
+
 ## [1.2.4]
 
 - Add custom plugin icon

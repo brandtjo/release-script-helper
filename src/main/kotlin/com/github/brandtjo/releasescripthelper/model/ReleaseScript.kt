@@ -19,7 +19,7 @@ class ReleaseScript {
         set(rawTicketNumber) {
             field = rawTicketNumber
             options.ticketTypes.stream()
-                .filter { field.toLowerCase().startsWith(it.toLowerCase()) }
+                .filter { field.lowercase(Locale.getDefault()).startsWith(it.lowercase(Locale.getDefault())) }
                 .findAny()
                 .ifPresent {
                     ticketType = it
@@ -70,7 +70,7 @@ class ReleaseScript {
             description = sanitizeFileNamePart(description, " ")
             description = StringUtils.strip(description)
             description = description.replace("\\s+".toRegex(), "-")
-            return description.toLowerCase()
+            return description.lowercase(Locale.getDefault())
         }
         return getDefaultInstance().description
     }
@@ -79,7 +79,10 @@ class ReleaseScript {
         val defaultSuffix = getDefaultInstance().fileEnding
         val suffix = Optional.ofNullable(fileEnding)
         return if (suffix.isPresent && StringUtils.isNotBlank(suffix.get())) {
-            StringUtils.defaultIfBlank(sanitizeFileNamePart(suffix.get(), "").toLowerCase(), defaultSuffix)
+            StringUtils.defaultIfBlank(
+                sanitizeFileNamePart(suffix.get(), "").lowercase(Locale.getDefault()),
+                defaultSuffix
+            )
         } else defaultSuffix
     }
 
