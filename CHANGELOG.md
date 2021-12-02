@@ -2,25 +2,21 @@
 
 # Release Script Helper Changelog
 
-## [Unreleased]
 
+## [1.2.6]
 - Update to Idea 2021.3
 
 ## [1.2.5]
-
 - Update to Idea 2021.2
 
 ## [1.2.4]
-
 - Add custom plugin icon
 
 ## [1.2.2] - 2021-08-21
-
 - Added latest version of Github Template to set up the plugin
 - Changed to Java 11 as targeted language level
 
 ## [1.2.0]
-
 - Added generation menu action: selected text will be copied to the generated release script (Hotkey: ctrl alt r)</li>
 - Changed to project-relative file path for default directory
 
