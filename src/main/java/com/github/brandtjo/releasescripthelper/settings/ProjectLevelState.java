@@ -2,7 +2,6 @@ package com.github.brandtjo.releasescripthelper.settings;
 
 import com.github.brandtjo.releasescripthelper.model.Options;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
@@ -19,7 +18,7 @@ public class ProjectLevelState implements PersistentStateComponent<ProjectLevelS
 	public Options options = new Options();
 
 	public static ProjectLevelState getInstanceFor(Project project) {
-		return ServiceManager.getService(project, ProjectLevelState.class);
+		return project.getService(ProjectLevelState.class);
 	}
 
 	@Override

@@ -2,6 +2,10 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+
+- Update to Idea 2021.3
+
 ## [1.2.5]
 
 - Update to Idea 2021.2
