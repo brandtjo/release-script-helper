@@ -1,24 +1,22 @@
 package com.github.brandtjo.releasescripthelper.settings;
 
-import com.github.brandtjo.releasescripthelper.util.FileUtil;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.InputValidatorEx;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.AddEditDeleteListPanel;
 import com.intellij.ui.ListSpeedSearch;
+import com.intellij.ui.MacroAwareTextBrowseFolderListener;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBRadioButton;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -40,13 +38,16 @@ public class ProjectLevelComponent {
     public ProjectLevelComponent(Project currentProject) {
         if (!currentProject.isDefault() && currentProject.getBasePath() != null) {
             VirtualFile projectFile = LocalFileSystem.getInstance().findFileByPath(currentProject.getBasePath());
+            FileChooserDescriptor fileChooserDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                    .withRoots(projectFile)
+                    .withShowFileSystemRoots(false)
+                    .withTreeRootVisible(false);
+            fileChooserDescriptor.setForcedToUseIdeaFileChooser(true);
             defaultDirectoryChooser.addBrowseFolderListener(
-                    new MyTextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                            .withRoots(projectFile), currentProject));
-        } else {
-            defaultDirectoryChooser.setEditable(false);
+                    new MacroAwareTextBrowseFolderListener(fileChooserDescriptor, currentProject));
         }
-
+        defaultDirectoryChooser.setEditable(false);
+        defaultDirectoryChooser.setTextFieldPreferredWidth(100);
         ButtonGroup group = new ButtonGroup();
         group.add(useCustomScriptNumber);
         group.add(useUnixTimeStamp);
@@ -177,23 +178,6 @@ public class ProjectLevelComponent {
         @Override
         protected String editSelectedItem(String item) {
             return showEditDialog(item);
-        }
-    }
-
-    private static class MyTextBrowseFolderListener extends TextBrowseFolderListener {
-
-        private final Project project;
-
-        public MyTextBrowseFolderListener(@NotNull FileChooserDescriptor fileChooserDescriptor,
-                                          @Nullable Project project) {
-            super(fileChooserDescriptor, project);
-            this.project = project;
-        }
-
-        @Override
-        @NotNull
-        protected String chosenFileToResultingText(@NotNull VirtualFile chosenFile) {
-            return FileUtil.toRelativePresentableUrl(project, chosenFile);
         }
     }
 }

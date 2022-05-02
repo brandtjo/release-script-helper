@@ -1,6 +1,5 @@
 package com.github.brandtjo.releasescripthelper.model
 
-import com.intellij.util.containers.stream
 import org.apache.commons.lang3.StringUtils
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
@@ -14,7 +13,7 @@ class ReleaseScript {
 
     var date: Date = Date()
     var scriptNumber: String = ""
-    var ticketType: String = ""
+    var ticketType: String? = ""
     var ticketNumber: String = ""
         set(rawTicketNumber) {
             field = rawTicketNumber
@@ -28,7 +27,7 @@ class ReleaseScript {
         }
     var description: String = ""
     var content: String? = ""
-    var fileEnding: String = ""
+    var fileEnding: String? = ""
     var options: Options = Options()
         set(options) {
             field = options
@@ -67,7 +66,7 @@ class ReleaseScript {
         val rawDescription = Optional.ofNullable(description)
         if (rawDescription.isPresent && StringUtils.isNotBlank(rawDescription.get())) {
             var description = rawDescription.get()
-            description = sanitizeFileNamePart(description, " ")
+            description = sanitizeFileNamePart(description, " ") ?: ""
             description = StringUtils.strip(description)
             description = description.replace("\\s+".toRegex(), "-")
             return description.lowercase(Locale.getDefault())
@@ -75,20 +74,20 @@ class ReleaseScript {
         return getDefaultInstance().description
     }
 
-    private fun parseSuffix(): String {
+    private fun parseSuffix(): String? {
         val defaultSuffix = getDefaultInstance().fileEnding
         val suffix = Optional.ofNullable(fileEnding)
         return if (suffix.isPresent && StringUtils.isNotBlank(suffix.get())) {
             StringUtils.defaultIfBlank(
-                sanitizeFileNamePart(suffix.get(), "").lowercase(Locale.getDefault()),
+                sanitizeFileNamePart(suffix.get(), "")?.lowercase(Locale.getDefault()),
                 defaultSuffix
             )
         } else defaultSuffix
     }
 
-    private fun sanitizeFileNamePart(fileNamePart: String, replacement: String): String {
+    private fun sanitizeFileNamePart(fileNamePart: String?, replacement: String): String? {
         if (StringUtils.isNotBlank(fileNamePart)) {
-            return fileNamePart.replace("[\\Q<>:\"/\\|?*.,´`+~#-_!§$%&()[]{}^°@€\\E]+".toRegex(), replacement)
+            return fileNamePart?.replace("[\\Q<>:\"/\\|?*.,´`+~#-_!§$%&()[]{}^°@€\\E]+".toRegex(), replacement)
         }
         throw IllegalArgumentException("Invalid File Name Part")
     }

@@ -10,27 +10,34 @@ import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.ActionLink
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBTextField
-import com.intellij.ui.layout.CCFlags
-import com.intellij.ui.layout.CellBuilder
-import com.intellij.ui.layout.panel
-import com.intellij.ui.layout.selected
+import com.intellij.ui.dsl.builder.COLUMNS_LARGE
+import com.intellij.ui.dsl.builder.Cell
+import com.intellij.ui.dsl.builder.bindItemNullable
+import com.intellij.ui.dsl.builder.bindSelected
+import com.intellij.ui.dsl.builder.bindText
+import com.intellij.ui.dsl.builder.columns
+import com.intellij.ui.dsl.builder.panel
+import com.intellij.ui.dsl.builder.selected
+import com.intellij.ui.dsl.gridLayout.HorizontalAlign.FILL
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
-import javax.swing.DefaultComboBoxModel
 import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 
+private const val TICKET_NUMBER_DESCRIPTION =
+    "a ticket number with a supported type prefix will automatically adjust the ticket type selection"
+
 class BasicAddDialog(private val releaseScript: ReleaseScript, private val currentProject: Project) :
     DialogWrapper(true) {
 
-    lateinit var useCustomScriptNumber: CellBuilder<JBCheckBox>
-    lateinit var scriptNumber: CellBuilder<JBTextField>
-    lateinit var useTicketCheckBox: CellBuilder<JBCheckBox>
-    lateinit var ticketType: CellBuilder<ComboBox<String>>
-    lateinit var ticketNumber: CellBuilder<JBTextField>
-    lateinit var description: CellBuilder<JBTextField>
-    lateinit var fileEndings: CellBuilder<ComboBox<String>>
+    lateinit var useCustomScriptNumber: Cell<JBCheckBox>
+    lateinit var scriptNumber: Cell<JBTextField>
+    lateinit var useTicketCheckBox: Cell<JBCheckBox>
+    lateinit var ticketType: Cell<ComboBox<String>>
+    lateinit var ticketNumber: Cell<JBTextField>
+    lateinit var description: Cell<JBTextField>
+    lateinit var fileEndings: Cell<ComboBox<String>>
 
     override fun createButtonsPanel(buttons: MutableList<out JButton>): JPanel {
         val link = ActionLink("Settings") {
@@ -49,31 +56,34 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
     override fun createCenterPanel(): JComponent {
         return panel {
             row("") {
-
-                useCustomScriptNumber = checkBox("Use Custom Number", releaseScript.options::useCustomScriptNumber)
-                scriptNumber = textField(releaseScript::scriptNumber)
-                    .enableIf(useCustomScriptNumber.selected)
+                useCustomScriptNumber = checkBox("Use custom number")
+                    .bindSelected(releaseScript.options::useCustomScriptNumber)
+                scriptNumber = textField()
+                    .bindText(releaseScript::scriptNumber)
+                    .accessibleDescription(
+                        "a custom release script number instead of a unix timestamp"
+                    )
+                    .enabledIf(useCustomScriptNumber.selected)
+                    .horizontalAlign(FILL)
+                    .resizableColumn()
                     .focused()
-                scriptNumber.component.toolTipText =
-                    "a custom release script number instead of a unix timestamp"
             }
             row("") {
-                useTicketCheckBox = checkBox("For Ticket", releaseScript.options::useTicket)
+                useTicketCheckBox = checkBox("For ticket")
+                    .bindSelected(releaseScript.options::useTicket)
                 ticketType =
-                    comboBox(
-                        DefaultComboBoxModel(releaseScript.options.ticketTypes),
-                        { releaseScript.ticketType },
-                        { releaseScript.ticketType = it ?: "" }
-                    )
-                        .enableIf(useTicketCheckBox.selected)
+                    comboBox(releaseScript.options.ticketTypes)
+                        .bindItemNullable(releaseScript::ticketType)
+                        .enabledIf(useTicketCheckBox.selected)
                 ticketType.enabled(releaseScript.options.ticketTypes.size > 1)
                 ticketType.component.toolTipText = "selects the type of the ticket"
-                ticketNumber = textField(releaseScript::ticketNumber)
-                    .enableIf(useTicketCheckBox.selected)
-                    .constraints(CCFlags.growX, CCFlags.pushX)
+                ticketNumber = textField()
+                    .bindText(releaseScript::ticketNumber)
+                    .accessibleDescription(TICKET_NUMBER_DESCRIPTION)
+                    .enabledIf(useTicketCheckBox.selected)
+                    .horizontalAlign(FILL)
+                    .resizableColumn()
                     .focused()
-                ticketNumber.component.toolTipText =
-                    "a ticket number with a supported type prefix will automatically adjust the ticket type selection"
                 ticketNumber.component.addKeyListener(object : KeyAdapter() {
                     override fun keyReleased(e: KeyEvent) {
                         releaseScript.ticketType =
@@ -86,18 +96,20 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                 })
             }
             row("Description:") {
-                description = textField(releaseScript::description)
+                description = textField()
+                    .bindText(releaseScript::description)
+                    .accessibleDescription(
+                        "the description text is used for the filename and a comment in the file itself"
+                    )
+                    .horizontalAlign(FILL)
+                    .resizableColumn()
+                    .columns(COLUMNS_LARGE)
                     .focused()
-                description.component.toolTipText =
-                    "the description text is used for the filename and a comment in the file itself"
             }
             row("File Ending:") {
                 fileEndings =
-                    comboBox(
-                        DefaultComboBoxModel(releaseScript.options.fileEndings),
-                        { releaseScript.fileEnding },
-                        { releaseScript.fileEnding = it ?: "" }
-                    )
+                    comboBox(releaseScript.options.fileEndings)
+                        .bindItemNullable(releaseScript::fileEnding)
                 fileEndings.enabled(releaseScript.options.fileEndings.size > 1)
             }
         }

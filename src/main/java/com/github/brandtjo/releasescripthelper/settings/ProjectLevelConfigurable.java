@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ProjectLevelConfigurable implements Configurable {
@@ -37,9 +38,9 @@ public class ProjectLevelConfigurable implements Configurable {
 		modified |= component.isUseCustomScriptNumber() != settings.options.getUseCustomScriptNumber();
 		modified |= component.isUseUnixTimestamp() == settings.options.getUseCustomScriptNumber();
 		modified |= !Arrays.equals(component.getFileEndings().toArray(new String[0]),
-				settings.options.getFileEndings());
+				settings.options.getFileEndings().toArray(new String[0]));
 		modified |= !Arrays.equals(component.getTicketTypes().toArray(new String[0]),
-				settings.options.getTicketTypes());
+				settings.options.getTicketTypes().toArray(new String[0]));
 		return modified;
 	}
 
@@ -48,8 +49,8 @@ public class ProjectLevelConfigurable implements Configurable {
 		ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
 		settings.options.setDefaultDirectory(component.getDefaultDirectory());
 		settings.options.setUseCustomScriptNumber(component.isUseCustomScriptNumber());
-		settings.options.setTicketTypes(component.getTicketTypes().toArray(new String[0]));
-		settings.options.setFileEndings(component.getFileEndings().toArray(new String[0]));
+		settings.options.setTicketTypes(component.getTicketTypes());
+		settings.options.setFileEndings(component.getFileEndings());
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class ProjectLevelConfigurable implements Configurable {
 		component.setDefaultDirectory(settings.options.getDefaultDirectory());
 		component.setUseCustomScriptNumber(settings.options.getUseCustomScriptNumber());
 		component.setUseUnixTimeStamp(!settings.options.getUseCustomScriptNumber());
-		component.setTicketTypes(Arrays.asList(settings.options.getTicketTypes()));
-		component.setFileEndings(Arrays.asList(settings.options.getFileEndings()));
+		component.setTicketTypes(new ArrayList<>(settings.options.getTicketTypes()));
+		component.setFileEndings(new ArrayList<>(settings.options.getFileEndings()));
 	}
 
 	@Override
