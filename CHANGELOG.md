@@ -2,7 +2,8 @@
 
 # Release Script Helper Changelog
 
-## [Unreleased]
+
+## [1.2.8]
 - Prefill ticket type and number from Git branch name if possible
 - Update dependencies
 - Remove plugin build range limitation
