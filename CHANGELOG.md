@@ -2,6 +2,10 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+- Prefill ticket type and number from Git branch name if possible
+- Update dependencies
+- Remove plugin build range limitation
 
 ## [1.2.7]
 - Update to Idea 2022.1
