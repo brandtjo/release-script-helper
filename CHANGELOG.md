@@ -2,6 +2,8 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+- Update dependencies
 
 ## [1.2.8]
 - Prefill ticket type and number from Git branch name if possible
