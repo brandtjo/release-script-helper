@@ -2,7 +2,8 @@
 
 # Release Script Helper Changelog
 
-## [Unreleased]
+
+## [1.2.9]
 - Update dependencies
 
 ## [1.2.8]
