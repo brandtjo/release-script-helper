@@ -17,6 +17,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.file.PsiDirectoryFactory;
 import git4idea.GitUtil;
 import git4idea.repo.GitRepository;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +94,8 @@ public abstract class BasicAddScript extends AnAction {
 
 	private void presetFromVcsBranch(ReleaseScript model) {
 		List<GitRepository> repositories = GitUtil.getRepositoryManager(currentProject).getRepositories();
+		if (CollectionUtils.isEmpty(repositories))
+			return;
 		String currentBranchName = repositories.get(0).getCurrentBranchName();
 		if (StringUtils.isBlank(currentBranchName))
 			return;
