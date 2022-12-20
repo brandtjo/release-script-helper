@@ -18,8 +18,7 @@ class ReleaseScript {
         set(rawTicketNumber) {
             field = rawTicketNumber
             options.ticketTypes.stream()
-                .filter { field.lowercase(Locale.getDefault()).startsWith(it.lowercase(Locale.getDefault())) }
-                .findAny()
+                .filter { field.lowercase(Locale.getDefault()).startsWith(it.lowercase(Locale.getDefault())) }.findAny()
                 .ifPresent {
                     ticketType = it
                     field = field.replaceFirst(it, "", true)
@@ -40,8 +39,7 @@ class ReleaseScript {
         val ticket = parseTicket()
         val description = parseDescription()
         val suffix = parseSuffix()
-        return Stream.of(prefix, ticket, description)
-            .filter(StringUtils::isNotBlank)
+        return Stream.of(prefix, ticket, description).filter(StringUtils::isNotBlank)
             .collect(Collectors.joining("_")) + '.' + suffix
     }
 
@@ -59,7 +57,9 @@ class ReleaseScript {
     private fun parseTicket(): String? {
         return if (options.useTicket && StringUtils.isNotBlank(ticketType) && StringUtils.isNotBlank(ticketNumber)) {
             ticketType + StringUtils.strip(ticketNumber)
-        } else null
+        } else {
+            null
+        }
     }
 
     private fun parseDescription(): String {
@@ -82,7 +82,9 @@ class ReleaseScript {
                 sanitizeFileNamePart(suffix.get(), "")?.lowercase(Locale.getDefault()),
                 defaultSuffix
             )
-        } else defaultSuffix
+        } else {
+            defaultSuffix
+        }
     }
 
     private fun sanitizeFileNamePart(fileNamePart: String?, replacement: String): String? {
