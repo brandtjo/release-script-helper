@@ -2,11 +2,17 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+
+- Update dependencies
+- Fix crash when project is not a git repository
 
 ## [1.2.9]
+
 - Update dependencies
 
 ## [1.2.8]
+
 - Prefill ticket type and number from Git branch name if possible
 - Update dependencies
 - Remove plugin build range limitation
