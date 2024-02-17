@@ -10,7 +10,6 @@ import java.util.stream.Collectors
 import java.util.stream.Stream
 
 class ReleaseScript {
-
     var date: Date = Date()
     var scriptNumber: String = ""
     var ticketType: String? = ""
@@ -50,7 +49,7 @@ class ReleaseScript {
         val line3 = "\n"
         val script = "$content\n"
         return (line1 + line2 + if (StringUtils.isNotBlank(content)) line3 + script else "").toByteArray(
-            StandardCharsets.UTF_8
+            StandardCharsets.UTF_8,
         )
     }
 
@@ -80,14 +79,17 @@ class ReleaseScript {
         return if (suffix.isPresent && StringUtils.isNotBlank(suffix.get())) {
             StringUtils.defaultIfBlank(
                 sanitizeFileNamePart(suffix.get(), "")?.lowercase(Locale.getDefault()),
-                defaultSuffix
+                defaultSuffix,
             )
         } else {
             defaultSuffix
         }
     }
 
-    private fun sanitizeFileNamePart(fileNamePart: String?, replacement: String): String? {
+    private fun sanitizeFileNamePart(
+        fileNamePart: String?,
+        replacement: String,
+    ): String? {
         if (StringUtils.isNotBlank(fileNamePart)) {
             return fileNamePart?.replace("[\\Q<>:\"/\\|?*.,´`+~#-_!§$%&()[]{}^°@€\\E]+".toRegex(), replacement)
         }

@@ -31,7 +31,6 @@ private const val TICKET_NUMBER_DESCRIPTION =
 
 class BasicAddDialog(private val releaseScript: ReleaseScript, private val currentProject: Project) :
     DialogWrapper(true) {
-
     lateinit var useCustomScriptNumber: Cell<JBCheckBox>
     lateinit var scriptNumber: Cell<JBTextField>
     lateinit var useTicketCheckBox: Cell<JBCheckBox>
@@ -41,14 +40,16 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
     lateinit var fileEndings: Cell<ComboBox<String>>
 
     override fun createButtonsPanel(buttons: MutableList<out JButton>): JPanel {
-        val link = ActionLink("Settings") {
-            val edited = ShowSettingsUtil.getInstance()
-                .editConfigurable(currentProject, ProjectLevelConfigurable(currentProject))
-            if (edited) {
-                releaseScript.options = ProjectLevelState.getInstanceFor(currentProject).options
-                updateUiComponentsByHandBecauseSwingIsStupid()
+        val link =
+            ActionLink("Settings") {
+                val edited =
+                    ShowSettingsUtil.getInstance()
+                        .editConfigurable(currentProject, ProjectLevelConfigurable(currentProject))
+                if (edited) {
+                    releaseScript.options = ProjectLevelState.getInstanceFor(currentProject).options
+                    updateUiComponentsByHandBecauseSwingIsStupid()
+                }
             }
-        }
         val linkAndButtons = ArrayList<JButton>(buttons)
         linkAndButtons.add(0, link)
         return super.createButtonsPanel(linkAndButtons)
@@ -57,55 +58,62 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
     override fun createCenterPanel(): JComponent {
         return panel {
             row("") {
-                useCustomScriptNumber = checkBox("Use custom number")
-                    .bindSelected(releaseScript.options::useCustomScriptNumber)
-                scriptNumber = textField()
-                    .bindText(releaseScript::scriptNumber)
-                    .accessibleDescription(
-                        "a custom release script number instead of a unix timestamp"
-                    )
-                    .enabledIf(useCustomScriptNumber.selected)
-                    .align(Align.FILL)
-                    .resizableColumn()
-                    .focused()
+                useCustomScriptNumber =
+                    checkBox("Use custom number")
+                        .bindSelected(releaseScript.options::useCustomScriptNumber)
+                scriptNumber =
+                    textField()
+                        .bindText(releaseScript::scriptNumber)
+                        .accessibleDescription(
+                            "a custom release script number instead of a unix timestamp",
+                        )
+                        .enabledIf(useCustomScriptNumber.selected)
+                        .align(Align.FILL)
+                        .resizableColumn()
+                        .focused()
             }
             row("") {
-                useTicketCheckBox = checkBox("For ticket")
-                    .bindSelected(releaseScript.options::useTicket)
+                useTicketCheckBox =
+                    checkBox("For ticket")
+                        .bindSelected(releaseScript.options::useTicket)
                 ticketType =
                     comboBox(releaseScript.options.ticketTypes)
                         .bindItem(releaseScript::ticketType)
                         .enabledIf(useTicketCheckBox.selected)
                 ticketType.enabled(releaseScript.options.ticketTypes.size > 1)
                 ticketType.component.toolTipText = "selects the type of the ticket"
-                ticketNumber = textField()
-                    .bindText(releaseScript::ticketNumber)
-                    .accessibleDescription(TICKET_NUMBER_DESCRIPTION)
-                    .enabledIf(useTicketCheckBox.selected)
-                    .align(Align.FILL)
-                    .resizableColumn()
-                    .focused()
-                ticketNumber.component.addKeyListener(object : KeyAdapter() {
-                    override fun keyReleased(e: KeyEvent) {
-                        releaseScript.ticketType =
-                            if (ticketType.component.item != null) ticketType.component.item else ""
-                        releaseScript.ticketNumber =
-                            if (ticketNumber.component.text != null) ticketNumber.component.text else ""
-                        ticketNumber.component.text = releaseScript.ticketNumber
-                        ticketType.component.item = releaseScript.ticketType
-                    }
-                })
+                ticketNumber =
+                    textField()
+                        .bindText(releaseScript::ticketNumber)
+                        .accessibleDescription(TICKET_NUMBER_DESCRIPTION)
+                        .enabledIf(useTicketCheckBox.selected)
+                        .align(Align.FILL)
+                        .resizableColumn()
+                        .focused()
+                ticketNumber.component.addKeyListener(
+                    object : KeyAdapter() {
+                        override fun keyReleased(e: KeyEvent) {
+                            releaseScript.ticketType =
+                                if (ticketType.component.item != null) ticketType.component.item else ""
+                            releaseScript.ticketNumber =
+                                if (ticketNumber.component.text != null) ticketNumber.component.text else ""
+                            ticketNumber.component.text = releaseScript.ticketNumber
+                            ticketType.component.item = releaseScript.ticketType
+                        }
+                    },
+                )
             }
             row("Description:") {
-                description = textField()
-                    .bindText(releaseScript::description)
-                    .accessibleDescription(
-                        "the description text is used for the filename and a comment in the file itself"
-                    )
-                    .align(Companion.FILL)
-                    .resizableColumn()
-                    .columns(COLUMNS_LARGE)
-                    .focused()
+                description =
+                    textField()
+                        .bindText(releaseScript::description)
+                        .accessibleDescription(
+                            "the description text is used for the filename and a comment in the file itself",
+                        )
+                        .align(Companion.FILL)
+                        .resizableColumn()
+                        .columns(COLUMNS_LARGE)
+                        .focused()
             }
             row("File Ending:") {
                 fileEndings =
