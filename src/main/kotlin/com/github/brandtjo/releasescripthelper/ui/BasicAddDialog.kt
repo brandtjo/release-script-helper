@@ -14,6 +14,7 @@ import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.Align.Companion
 import com.intellij.ui.dsl.builder.COLUMNS_LARGE
 import com.intellij.ui.dsl.builder.Cell
+import com.intellij.ui.dsl.builder.Panel
 import com.intellij.ui.dsl.builder.bindItem
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.bindText
@@ -57,21 +58,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
 
     override fun createCenterPanel(): JComponent {
         return panel {
-            row("") {
-                useCustomScriptNumber =
-                    checkBox("Use custom number")
-                        .bindSelected(releaseScript.options::useCustomScriptNumber)
-                scriptNumber =
-                    textField()
-                        .bindText(releaseScript::scriptNumber)
-                        .accessibleDescription(
-                            "a custom release script number instead of a unix timestamp",
-                        )
-                        .enabledIf(useCustomScriptNumber.selected)
-                        .align(Align.FILL)
-                        .resizableColumn()
-                        .focused()
-            }
+            ticketNumberRow()
             row("") {
                 useTicketCheckBox =
                     checkBox("For ticket")
@@ -121,6 +108,24 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                         .bindItem(releaseScript::fileEnding)
                 fileEndings.enabled(releaseScript.options.fileEndings.size > 1)
             }
+        }
+    }
+
+    private fun Panel.ticketNumberRow() {
+        row("") {
+            useCustomScriptNumber =
+                checkBox("Use custom number")
+                    .bindSelected(releaseScript.options::useCustomScriptNumber)
+            scriptNumber =
+                textField()
+                    .bindText(releaseScript::scriptNumber)
+                    .accessibleDescription(
+                        "a custom release script number instead of a unix timestamp",
+                    )
+                    .enabledIf(useCustomScriptNumber.selected)
+                    .align(Align.FILL)
+                    .resizableColumn()
+                    .focused()
         }
     }
 
