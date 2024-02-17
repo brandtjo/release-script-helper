@@ -131,7 +131,7 @@ public class ProjectLevelComponent {
         public MyListPanel(String title, String query) {
             super(title, new ArrayList<>());
             myQuery = query;
-            new ListSpeedSearch<>(myList);
+            ListSpeedSearch.installOn(myList);
         }
 
         @Override

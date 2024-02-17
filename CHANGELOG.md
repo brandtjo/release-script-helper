@@ -2,6 +2,11 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+
+- Update dependencies
+- Misc maintenance
+
 ## 1.2.10 - 2022-12-20
 - Update dependencies
 - Fix crash when project is not a git repository

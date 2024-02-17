@@ -10,15 +10,16 @@ import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.ActionLink
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBTextField
+import com.intellij.ui.dsl.builder.Align
+import com.intellij.ui.dsl.builder.Align.Companion
 import com.intellij.ui.dsl.builder.COLUMNS_LARGE
 import com.intellij.ui.dsl.builder.Cell
-import com.intellij.ui.dsl.builder.bindItemNullable
+import com.intellij.ui.dsl.builder.bindItem
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.columns
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.selected
-import com.intellij.ui.dsl.gridLayout.HorizontalAlign.FILL
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import javax.swing.JButton
@@ -64,7 +65,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                         "a custom release script number instead of a unix timestamp"
                     )
                     .enabledIf(useCustomScriptNumber.selected)
-                    .horizontalAlign(FILL)
+                    .align(Align.FILL)
                     .resizableColumn()
                     .focused()
             }
@@ -73,7 +74,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                     .bindSelected(releaseScript.options::useTicket)
                 ticketType =
                     comboBox(releaseScript.options.ticketTypes)
-                        .bindItemNullable(releaseScript::ticketType)
+                        .bindItem(releaseScript::ticketType)
                         .enabledIf(useTicketCheckBox.selected)
                 ticketType.enabled(releaseScript.options.ticketTypes.size > 1)
                 ticketType.component.toolTipText = "selects the type of the ticket"
@@ -81,7 +82,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                     .bindText(releaseScript::ticketNumber)
                     .accessibleDescription(TICKET_NUMBER_DESCRIPTION)
                     .enabledIf(useTicketCheckBox.selected)
-                    .horizontalAlign(FILL)
+                    .align(Align.FILL)
                     .resizableColumn()
                     .focused()
                 ticketNumber.component.addKeyListener(object : KeyAdapter() {
@@ -101,7 +102,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
                     .accessibleDescription(
                         "the description text is used for the filename and a comment in the file itself"
                     )
-                    .horizontalAlign(FILL)
+                    .align(Companion.FILL)
                     .resizableColumn()
                     .columns(COLUMNS_LARGE)
                     .focused()
@@ -109,7 +110,7 @@ class BasicAddDialog(private val releaseScript: ReleaseScript, private val curre
             row("File Ending:") {
                 fileEndings =
                     comboBox(releaseScript.options.fileEndings)
-                        .bindItemNullable(releaseScript::fileEnding)
+                        .bindItem(releaseScript::fileEnding)
                 fileEndings.enabled(releaseScript.options.fileEndings.size > 1)
             }
         }
