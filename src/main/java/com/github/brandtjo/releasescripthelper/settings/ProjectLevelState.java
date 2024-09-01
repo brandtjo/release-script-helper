@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 )
 public class ProjectLevelState implements PersistentStateComponent<ProjectLevelState> {
 
-	public Options options = new Options();
+	private final Options options = new Options();
 
 	public static ProjectLevelState getInstanceFor(Project project) {
 		return project.getService(ProjectLevelState.class);
@@ -29,5 +29,9 @@ public class ProjectLevelState implements PersistentStateComponent<ProjectLevelS
 	@Override
 	public void loadState(@NotNull ProjectLevelState state) {
 		XmlSerializerUtil.copyBean(state, this);
+	}
+
+	public Options getOptions() {
+		return options;
 	}
 }

@@ -34,33 +34,33 @@ public class ProjectLevelConfigurable implements Configurable {
 	@Override
 	public boolean isModified() {
 		ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
-		boolean modified = !component.getDefaultDirectory().equals(settings.options.getDefaultDirectory());
-		modified |= component.isUseCustomScriptNumber() != settings.options.getUseCustomScriptNumber();
-		modified |= component.isUseUnixTimestamp() == settings.options.getUseCustomScriptNumber();
+		boolean modified = !component.getDefaultDirectory().equals(settings.getOptions().getDefaultDirectory());
+		modified |= component.isUseCustomScriptNumber() != settings.getOptions().getUseCustomScriptNumber();
+		modified |= component.isUseUnixTimestamp() == settings.getOptions().getUseCustomScriptNumber();
 		modified |= !Arrays.equals(component.getFileEndings().toArray(new String[0]),
-				settings.options.getFileEndings().toArray(new String[0]));
+				settings.getOptions().getFileEndings().toArray(new String[0]));
 		modified |= !Arrays.equals(component.getTicketTypes().toArray(new String[0]),
-				settings.options.getTicketTypes().toArray(new String[0]));
+				settings.getOptions().getTicketTypes().toArray(new String[0]));
 		return modified;
 	}
 
 	@Override
 	public void apply() {
 		ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
-		settings.options.setDefaultDirectory(component.getDefaultDirectory());
-		settings.options.setUseCustomScriptNumber(component.isUseCustomScriptNumber());
-		settings.options.setTicketTypes(component.getTicketTypes());
-		settings.options.setFileEndings(component.getFileEndings());
+		settings.getOptions().setDefaultDirectory(component.getDefaultDirectory());
+		settings.getOptions().setUseCustomScriptNumber(component.isUseCustomScriptNumber());
+		settings.getOptions().setTicketTypes(component.getTicketTypes());
+		settings.getOptions().setFileEndings(component.getFileEndings());
 	}
 
 	@Override
 	public void reset() {
 		ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
-		component.setDefaultDirectory(settings.options.getDefaultDirectory());
-		component.setUseCustomScriptNumber(settings.options.getUseCustomScriptNumber());
-		component.setUseUnixTimeStamp(!settings.options.getUseCustomScriptNumber());
-		component.setTicketTypes(new ArrayList<>(settings.options.getTicketTypes()));
-		component.setFileEndings(new ArrayList<>(settings.options.getFileEndings()));
+		component.setDefaultDirectory(settings.getOptions().getDefaultDirectory());
+		component.setUseCustomScriptNumber(settings.getOptions().getUseCustomScriptNumber());
+		component.setUseUnixTimeStamp(!settings.getOptions().getUseCustomScriptNumber());
+		component.setTicketTypes(new ArrayList<>(settings.getOptions().getTicketTypes()));
+		component.setFileEndings(new ArrayList<>(settings.getOptions().getFileEndings()));
 	}
 
 	@Override
