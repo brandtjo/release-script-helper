@@ -44,7 +44,7 @@ public abstract class BasicAddScript extends AnAction {
 
 	protected Optional<PsiDirectory> getDefaultDirectory() {
 		return Optional.ofNullable(ProjectLevelState.getInstanceFor(currentProject))
-				.map(it -> it.options)
+				.map(ProjectLevelState::getOptions)
 				.map(Options::getDefaultDirectory)
 				.filter(StringUtils::isNotBlank)
 				.map(filePath -> FileUtil.fromRelativePresentableUrl(currentProject, filePath))
@@ -96,7 +96,7 @@ public abstract class BasicAddScript extends AnAction {
 		List<GitRepository> repositories = GitUtil.getRepositoryManager(currentProject).getRepositories();
 		if (CollectionUtils.isEmpty(repositories))
 			return;
-		String currentBranchName = repositories.get(0).getCurrentBranchName();
+		String currentBranchName = repositories.getFirst().getCurrentBranchName();
 		if (StringUtils.isBlank(currentBranchName))
 			return;
 		String[] currentBranch = currentBranchName.split("/");
@@ -118,6 +118,6 @@ public abstract class BasicAddScript extends AnAction {
 	}
 
 	private void updateOptions(ReleaseScript model) {
-		model.setOptions(ProjectLevelState.getInstanceFor(currentProject).options);
+		model.setOptions(ProjectLevelState.getInstanceFor(currentProject).getOptions());
 	}
 }

@@ -2,6 +2,11 @@
 
 # Release Script Helper Changelog
 
+## [Unreleased]
+
+- Update dependencies
+- Misc maintenance
+
 ## 1.2.11 - 2024-02-17
 
 - Update dependencies

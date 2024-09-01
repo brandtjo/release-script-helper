@@ -1,5 +1,6 @@
 package com.github.brandtjo.releasescripthelper.action;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
@@ -36,5 +37,10 @@ public class GenerationMenuAddScript extends BasicAddScript {
         e.getPresentation().setEnabledAndVisible(currentProject != null
                 && editor != null
                 && editor.getSelectionModel().hasSelection());
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 }

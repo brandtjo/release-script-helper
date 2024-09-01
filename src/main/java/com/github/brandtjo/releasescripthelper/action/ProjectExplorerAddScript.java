@@ -1,5 +1,6 @@
 package com.github.brandtjo.releasescripthelper.action;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
@@ -19,9 +20,9 @@ public class ProjectExplorerAddScript extends BasicAddScript {
 		PsiDirectory directory;
 
 		boolean selectedbyUser = false;
-		Object navigatable = event.getData(CommonDataKeys.NAVIGATABLE);
-		if (navigatable instanceof PsiDirectory) {
-			directory = (PsiDirectory) navigatable;
+		Object navigable = event.getData(CommonDataKeys.NAVIGATABLE);
+		if (navigable instanceof PsiDirectory psiDirectory) {
+			directory = psiDirectory;
 			selectedbyUser = true;
 		} else if (defaultDirectory.isPresent()) {
 			directory = defaultDirectory.get();
@@ -36,6 +37,11 @@ public class ProjectExplorerAddScript extends BasicAddScript {
 				.map(model -> model.getSelectedText(true))
 				.filter(StringUtils::isNotBlank)
 				.orElse(null));
+	}
+
+	@Override
+	public @NotNull ActionUpdateThread getActionUpdateThread() {
+		return ActionUpdateThread.BGT;
 	}
 
 }
