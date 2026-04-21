@@ -1,0 +1,31 @@
+{
+  "skills": {
+    "directory": ".agents/skills"
+  },
+  "mcp": {
+    "intellij": {
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:64342/stream",
+      "headers": {}
+    }
+  },
+  "allowedCommands": [
+    "./gradlew buildPlugin",
+    "./gradlew check",
+    "./gradlew verifyPlugin",
+    "./gradlew qodana",
+    "./gradlew getChangelog",
+    "./gradlew properties",
+    "./gradlew clean",
+    "./gradlew build",
+    "./gradlew test",
+    "./gradlew patchChangelog",
+    "npx skills add",
+    "python3"
+  ],
+  "instructions": {
+    "gradle": "Execute all Gradle commands through the IntelliJ MCP's `execute_terminal_command` tool rather than the bash tool. This provides IDE integration with Gradle (progress tracking, output in IDE terminal, proper environment). Example: use MCP tool `execute_terminal_command` with command `./gradlew buildPlugin`.",
+    "intellij_mcp": "Make frequent use of the IntelliJ MCP's toolsets for IDE integration:\n\n- **AnalysisToolset**: `get_file_problems` (diagnostics), `get_symbol_info` (quick docs), `generate_psi_tree` (code structure). Use these instead of LSP diagnostics when IDE context is needed.\n- **FileToolset**: `read_file`, `get_file_text_by_path`, `search_in_files_by_regex`, `search_in_files_by_text`, `search_file`, `search_regex`, `search_symbol`, `find_files_by_glob`, `find_files_by_name_keyword`, `list_directory_tree`, `get_all_open_file_paths`. Prefer these over bash/glob/grep for file operations within the project.\n- **ProjectToolset**: `build_project`, `get_run_configurations`, `get_project_dependencies`, `get_project_modules`, `get_repositories`. Use for project-level operations.\n\nWhen modifying files, use MCP's `replace_text_in_file` or `create_new_file` for IDE-integrated edits that trigger inspections and notifications.",
+    "readonly_mcp_tools": "The following MCP tools are read-only and safe to use without permission prompts:\n\n- File operations: read_file, get_file_text_by_path, find_files_by_glob, find_files_by_name_keyword, list_directory_tree, get_all_open_file_paths, search_file, search_regex, search_in_files_by_regex, search_in_files_by_text, search_symbol, get_symbol_info\n- Project info: get_run_configurations, get_project_dependencies, get_project_modules, get_repositories\n- Analysis: get_file_problems, generate_inspection_kts_api, generate_inspection_kts_examples, generate_psi_tree\n- Database (read-only): list_database_connections, list_database_schemas, list_schema_object_kinds, list_schema_objects, list_recent_sql_queries, get_database_object_description, test_database_connection\n- Other: permission_prompt, validate_inspection_kts"
+  }
+}
