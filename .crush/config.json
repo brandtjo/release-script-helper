@@ -3,11 +3,6 @@
     "directory": ".crush/skills"
   },
   "mcp": {
-    "intellij": {
-      "type": "streamable-http",
-      "url": "http://127.0.0.1:64342/stream",
-      "headers": {}
-    }
   },
   "allowedCommands": [
     "./gradlew buildPlugin",
