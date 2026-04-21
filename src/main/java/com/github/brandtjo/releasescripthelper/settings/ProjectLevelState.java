@@ -11,11 +11,11 @@ import org.jetbrains.annotations.Nullable;
 
 @State(
 		name = "com.github.brandtjo.releasescripthelper.settings.ProjectLevelState",
-		storages = {@Storage("ReleaseScriptHelperPlugin.xml")}
+		storages = {@Storage("file://.idea/ReleaseScriptHelperPlugin.xml")}
 )
 public class ProjectLevelState implements PersistentStateComponent<ProjectLevelState> {
 
-	private final Options options = new Options();
+	private Options options = new Options();
 
 	public static ProjectLevelState getInstanceFor(Project project) {
 		return project.getService(ProjectLevelState.class);
@@ -33,5 +33,9 @@ public class ProjectLevelState implements PersistentStateComponent<ProjectLevelS
 
 	public Options getOptions() {
 		return options;
+	}
+
+	public void setOptions(Options options) {
+		this.options = options;
 	}
 }
