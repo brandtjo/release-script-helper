@@ -5,6 +5,7 @@ import com.github.brandtjo.releasescripthelper.model.ReleaseScript;
 import com.github.brandtjo.releasescripthelper.settings.ProjectLevelState;
 import com.github.brandtjo.releasescripthelper.ui.BasicAddDialog;
 import com.github.brandtjo.releasescripthelper.util.FileUtil;
+import com.github.brandtjo.releasescripthelper.util.TicketParser;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
@@ -22,10 +23,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
 
 public abstract class BasicAddScript extends AnAction {
 
@@ -101,14 +103,12 @@ public abstract class BasicAddScript extends AnAction {
 			return;
 		String[] currentBranch = currentBranchName.split("/");
 		String[] nameParts = currentBranch[currentBranch.length - 1].split("[-_]");
-		String ticketType = model.getOptions().getTicketTypes().stream()
-				.filter(type -> StringUtils.startsWithIgnoreCase(nameParts[0], type))
-				.findFirst()
-				.orElse(null);
-		if (StringUtils.isBlank(ticketType))
+		Optional<String[]> ticketInfo = TicketParser.extractTicket(nameParts[0], model.getOptions().getTicketTypes());
+		if (ticketInfo.isEmpty())
 			return;
-		String ticketNumber = StringUtils.isNotBlank(StringUtils.removeStartIgnoreCase(nameParts[0], ticketType))
-				? StringUtils.removeStartIgnoreCase(nameParts[0], ticketType)
+		String ticketType = ticketInfo.get()[0];
+		String ticketNumber = StringUtils.isNotBlank(ticketInfo.get()[1])
+				? ticketInfo.get()[1]
 				: nameParts.length > 1
 				    ? nameParts[1]
 				    : StringUtils.EMPTY;
