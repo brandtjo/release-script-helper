@@ -2,3 +2,9 @@
 **/.idea/**
 **/build/**
 **/.intellijPlatform/**
+
+# Keystore files (DO NOT COMMIT)
+*.keystore
+private_encrypted.pem
+private.pem
+chain.crt
