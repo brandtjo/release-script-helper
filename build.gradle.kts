@@ -38,10 +38,16 @@ dependencies {
         create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
-        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+        val bundledPluginsProp = providers.gradleProperty("platformBundledPlugins").getOrNull()
+        if (!bundledPluginsProp.isNullOrBlank()) {
+            bundledPlugins(bundledPluginsProp.split(',').map { it.trim() })
+        }
 
         // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file for plugin from JetBrains Marketplace.
-        plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
+        val pluginsProp = providers.gradleProperty("platformPlugins").getOrNull()
+        if (!pluginsProp.isNullOrBlank()) {
+            plugins(pluginsProp.split(',').map { it.trim() })
+        }
 
         instrumentationTools()
         pluginVerifier()
@@ -131,13 +137,7 @@ tasks {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
 
-    publishPlugin {
-        dependsOn(patchChangelog)
-    }
-
-    buildSearchableOptions {
-        enabled = false
-    }
+    publishPlugin { dependsOn(patchChangelog) }
 }
 
 intellijPlatformTesting {

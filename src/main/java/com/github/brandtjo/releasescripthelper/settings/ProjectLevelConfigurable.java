@@ -36,7 +36,7 @@ public class ProjectLevelConfigurable implements Configurable {
 		ProjectLevelState settings = ProjectLevelState.getInstanceFor(project);
 		boolean modified = !component.getDefaultDirectory().equals(settings.getOptions().getDefaultDirectory());
 		modified |= component.isUseCustomScriptNumber() != settings.getOptions().getUseCustomScriptNumber();
-		modified |= component.isUseUnixTimestamp() == settings.getOptions().getUseCustomScriptNumber();
+		modified |= component.isUseUnixTimestamp() != settings.getOptions().getUseCustomScriptNumber();
 		modified |= !Arrays.equals(component.getFileEndings().toArray(new String[0]),
 				settings.getOptions().getFileEndings().toArray(new String[0]));
 		modified |= !Arrays.equals(component.getTicketTypes().toArray(new String[0]),
