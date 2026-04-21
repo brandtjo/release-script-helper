@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Added
+- GitHub Actions CI/CD workflows (build, test, Qodana, verify, release)
+- Plugin signing configuration for JetBrains Marketplace publishing
+
 ## [1.2.12] - 2024-09-02
 
 - Update dependencies
@@ -69,8 +73,8 @@
 
 - Added initial project setup (contains only support for sql files and 3 ticket prefixes)
 
-[Unreleased]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v1.2.12...HEAD
-[1.2.12]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v1.2.11...v1.2.12
+[Unreleased]: https://github.com/brandtjo/release-script-helper/compare/v1.3.0...HEAD
+[1.2.12]: https://github.com/brandtjo/release-script-helper/compare/v1.2.11...v1.2.12
 [1.2.11]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v1.2.10...v1.2.11
 [1.2.10]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v1.2.9...v1.2.10
 [1.2.9]: https://github.com/JetBrains/intellij-platform-plugin-template/compare/v1.2.8...v1.2.9
