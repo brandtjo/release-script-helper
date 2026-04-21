@@ -1,0 +1,35 @@
+{
+  "skill_name": "platform-plugin",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "I want to create a new IntelliJ IDEA plugin from scratch. I need the full project structure with Gradle build files, plugin.xml, and a basic Kotlin source file. I'm using IntelliJ IDEA 2025.2 and want to use Kotlin for the implementation.",
+      "expected_output": "Complete project scaffold with settings.gradle.kts, build.gradle.kts, gradle.properties, plugin.xml, README.md with description markers, CHANGELOG.md, and a sample Kotlin source file. Should use IntelliJ Platform Gradle Plugin 2.x, include Kotlin JVM plugin, and have proper repository configuration.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "I need to add a menu action to my IntelliJ plugin that appears in the Tools menu. The action should display a dialog with a message when clicked. Show me the AnAction implementation, the plugin.xml registration, and how to localize the text.",
+      "expected_output": "AnAction subclass with actionPerformed and update methods, plugin.xml action registration with add-to-group pointing to ToolsMenu, keyboard shortcut, resource bundle properties file with localized strings, and a simple JBDialog or message dialog implementation.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Create a tool window for my IntelliJ plugin called 'Log Viewer' that shows a text area with log output. It should be docked on the right side of the IDE with the AllIcons.General.ViewToolbar icon. I need the factory class, the content panel, and the plugin.xml registration.",
+      "expected_output": "ToolWindowFactory implementation with createToolWindowContent, a content class with JBTextArea or similar text component, ContentFactory usage, plugin.xml toolWindow extension with factoryClass, id, icon, and anchor=right attributes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need to add persistent settings to my IntelliJ plugin. The plugin should store a list of server URLs and a default port number that survives IDE restarts. I want to use a project-level service with XML serialization. Also create a settings UI page in the IDE preferences.",
+      "expected_output": "Project-level service implementing PersistentStateComponent with State data class, XmlSerializerUtil for bean copying, a Configurable implementation for the settings UI with createComponent, isModified, apply, and reset methods, and plugin.xml registrations for both the service and the configurable.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Set up GitHub Actions CI/CD for my IntelliJ plugin. I need a build workflow that tests on push and PR, and a release workflow that publishes to JetBrains Marketplace when a GitHub release is created. The plugin needs to be signed with certificates and published using a token.",
+      "expected_output": "build.yml with build, test, verify, and releaseDraft jobs using setup-java@v5, gradle/actions/setup-gradle@v5, buildPlugin, check, and verifyPlugin tasks. release.yml with patchChangelog, publishPlugin, upload release asset, and create changelog PR steps. Include all required secrets (PUBLISH_TOKEN, PRIVATE_KEY, PRIVATE_KEY_PASSWORD, CERTIFICATE_CHAIN).",
+      "files": []
+    }
+  ]
+}
