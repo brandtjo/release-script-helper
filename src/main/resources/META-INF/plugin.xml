@@ -15,11 +15,13 @@
                 class="com.github.brandtjo.releasescripthelper.action.ProjectExplorerAddScript" text="Release Script"
                 description="Adds a release script to the selected directory" icon="AllIcons.FileTypes.AddAny">
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
         </action>
         <action id="release-script-helper.generation-menu"
                 class="com.github.brandtjo.releasescripthelper.action.GenerationMenuAddScript"
                 text="Generate Release Script" description="Generates a release script from selected text">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
         </action>
     </actions>
 
