@@ -95,26 +95,28 @@ public abstract class BasicAddScript extends AnAction {
 	}
 
 	private void presetFromVcsBranch(ReleaseScript model) {
-		List<GitRepository> repositories = GitUtil.getRepositoryManager(currentProject).getRepositories();
-		if (CollectionUtils.isEmpty(repositories))
-			return;
-		String currentBranchName = repositories.getFirst().getCurrentBranchName();
-		if (StringUtils.isBlank(currentBranchName))
-			return;
-		String[] currentBranch = currentBranchName.split("/");
-		String[] nameParts = currentBranch[currentBranch.length - 1].split("[-_]");
-		Optional<String[]> ticketInfo = TicketParser.extractTicket(nameParts[0], model.getOptions().getTicketTypes());
-		if (ticketInfo.isEmpty())
-			return;
-		String ticketType = ticketInfo.get()[0];
-		String ticketNumber = StringUtils.isNotBlank(ticketInfo.get()[1])
-				? ticketInfo.get()[1]
-				: nameParts.length > 1
-				    ? nameParts[1]
-				    : StringUtils.EMPTY;
+		ApplicationManager.getApplication().runReadAction((Runnable) () -> {
+			List<GitRepository> repositories = GitUtil.getRepositoryManager(currentProject).getRepositories();
+			if (CollectionUtils.isEmpty(repositories))
+				return;
+			String currentBranchName = repositories.getFirst().getCurrentBranchName();
+			if (StringUtils.isBlank(currentBranchName))
+				return;
+			String[] currentBranch = currentBranchName.split("/");
+			String[] nameParts = currentBranch[currentBranch.length - 1].split("[-_]");
+			Optional<String[]> ticketInfo = TicketParser.extractTicket(nameParts[0], model.getOptions().getTicketTypes());
+			if (ticketInfo.isEmpty())
+				return;
+			String ticketType = ticketInfo.get()[0];
+			String ticketNumber = StringUtils.isNotBlank(ticketInfo.get()[1])
+					? ticketInfo.get()[1]
+					: nameParts.length > 1
+					    ? nameParts[1]
+					    : StringUtils.EMPTY;
 
-        model.setTicketType(ticketType);
-        model.setTicketNumber(ticketNumber);
+			model.setTicketType(ticketType);
+			model.setTicketNumber(ticketNumber);
+		});
 	}
 
 	private void updateOptions(ReleaseScript model) {

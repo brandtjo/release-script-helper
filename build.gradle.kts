@@ -15,9 +15,7 @@ group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
 
 // Set the JVM language level used to build the project.
-kotlin {
-    jvmToolchain(21)
-}
+// Kotlin jvmToolchain defaults to the platform-required Java version in intellijPlatform 2.14.0
 
 // Configure project's dependencies
 repositories {
@@ -49,9 +47,6 @@ dependencies {
             plugins(pluginsProp.split(',').map { it.trim() })
         }
 
-        instrumentationTools()
-        pluginVerifier()
-        zipSigner()
         testFramework(TestFrameworkType.Platform)
     }
 }
@@ -106,12 +101,6 @@ intellijPlatform {
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels = providers.gradleProperty("pluginVersion")
             .map { listOf(it.substringAfter('-', "").substringBefore('.').ifEmpty { "default" }) }
-    }
-
-    pluginVerification {
-        ides {
-            recommended()
-        }
     }
 }
 
