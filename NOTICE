@@ -1,0 +1,11 @@
+Release Script Helper
+Copyright 2026 Johannes Brandt
+
+This product bundles libraries that are provided by the IntelliJ Platform:
+- Apache Commons Lang3 (Apache License 2.0)
+- Apache Commons Collections (Apache License 2.0)
+- SLF4J (MIT License)
+
+These libraries are not redistributed by this plugin; they are supplied by the
+IntelliJ Platform at runtime. Their respective licenses apply to those
+components.

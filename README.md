@@ -1,6 +1,7 @@
 # release-script-helper
 
 ![Build](https://github.com/brandtjo/release-script-helper/workflows/Build/badge.svg)
+[![License](https://img.shields.io/github/license/brandtjo/release-script-helper)](LICENSE)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/17417-release-script-helper)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/17417-release-script-helper)
 
@@ -19,6 +20,12 @@ If the current project is a Git project, then a branch naming convention can be 
 <!-- Plugin description end -->
 
 ---
+
+## License
+
+This project is licensed under the [GNU Lesser General Public License v3.0](LICENSE).
+See [LICENSE-USER.md](LICENSE-USER.md) for the end user license agreement.
+
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template

@@ -126,6 +126,18 @@ tasks {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
 
+    val copyNotices by registering(Copy::class) {
+        from(rootDir) {
+            include("LICENSE", "NOTICE", "LICENSE-USER.md")
+        }
+        into(layout.buildDirectory.dir("plugin-notices"))
+    }
+
+    processResources {
+        dependsOn(copyNotices)
+        from(layout.buildDirectory.dir("plugin-notices"))
+    }
+
     publishPlugin { dependsOn(patchChangelog) }
 }
 
