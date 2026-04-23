@@ -165,6 +165,7 @@ jobs:
         uses: JetBrains/qodana-action@v2025.3.2
         with:
           cache-default-branch-only: true
+          image: jetbrains/qodana-jvm-community:latest
 
   # Run plugin structure verification along with IntelliJ Plugin Verifier
   verify:
