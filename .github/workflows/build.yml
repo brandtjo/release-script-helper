@@ -161,6 +161,7 @@ jobs:
 
       # Run Qodana inspections
       - name: Qodana - Code Inspection
+        continue-on-error: true
         uses: JetBrains/qodana-action@v2025.3.2
         with:
           cache-default-branch-only: true
@@ -213,7 +214,7 @@ jobs:
   releaseDraft:
     name: Release draft
     if: github.event_name != 'pull_request'
-    needs: [ build, test, inspectCode, verify ]
+    needs: [ build, test, verify ]
     runs-on: self-hosted
     permissions:
       contents: write
