@@ -225,6 +225,25 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v4
 
+      # Install GitHub CLI
+      - name: Install gh CLI
+        run: |
+          if command -v apt-get &>/dev/null; then
+            type -p curl >/dev/null || sudo apt install curl -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+              && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+              && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+              && sudo apt update && sudo apt install gh -y
+          elif command -v brew &>/dev/null; then
+            brew install gh
+          else
+            curl -fsSL -o /tmp/gh.tar.gz https://github.com/cli/cli/releases/download/v2.67.0/gh_2.67.0_linux_amd64.tar.gz \
+              && sudo tar -xzf /tmp/gh.tar.gz -C /tmp \
+              && sudo cp /tmp/gh_2.67.0_linux_amd64/bin/gh /usr/local/bin/gh \
+              && sudo cp /tmp/gh_2.67.0_linux_amd64/share/man/man1/gh.1 /usr/local/share/man/man1/gh.1 \
+              && sudo mkdir -p /usr/local/share/zsh/site-functions && sudo cp /tmp/gh_2.67.0_linux_amd64/share/zsh/site-functions/_gh /usr/local/share/zsh/site-functions/_gh 2>/dev/null || true
+          fi
+
       # Remove old release drafts by using the curl request for the available releases with a draft flag
       - name: Remove Old Release Drafts
         env:
