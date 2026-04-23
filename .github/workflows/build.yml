@@ -166,6 +166,8 @@ jobs:
         with:
           cache-default-branch-only: true
           image: jetbrains/qodana-jvm-community:latest
+        env:
+          DOCKER_HOST: unix:///run/podman/podman.sock
 
   # Run plugin structure verification along with IntelliJ Plugin Verifier
   verify:
