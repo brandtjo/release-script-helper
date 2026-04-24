@@ -1,7 +1,7 @@
 # GitHub Actions Workflow is created for testing and preparing the plugin release in the following steps:
 # - Validate Gradle Wrapper.
 # - Run 'test' and 'verifyPlugin' tasks.
-# - Run Qodana inspections.
+# - Run 'test' and 'verifyPlugin' tasks.
 # - Run the 'buildPlugin' task and prepare artifact for further tests.
 # - Run the 'runPluginVerifier' task.
 # - Create a draft release.
@@ -137,37 +137,7 @@ jobs:
         with:
           files: ${{ github.workspace }}/build/reports/kover/report.xml
 
-  # Run Qodana inspections and provide report
-  inspectCode:
-    name: Inspect code
-    needs: [ build ]
-    runs-on: self-hosted
-    permissions:
-      contents: write
-      checks: write
-      pull-requests: write
-    steps:
 
-      # Check out the current repository
-      - name: Fetch Sources
-        uses: actions/checkout@v4
-
-      # Set up Java environment for the next steps
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: 21
-
-      # Run Qodana inspections
-      - name: Qodana - Code Inspection
-        continue-on-error: true
-        uses: JetBrains/qodana-action@v2025.3.2
-        with:
-          cache-default-branch-only: true
-          image: jetbrains/qodana-jvm-community:latest
-        env:
-          DOCKER_HOST: unix:///run/podman/podman.sock
 
   # Run plugin structure verification along with IntelliJ Plugin Verifier
   verify:
